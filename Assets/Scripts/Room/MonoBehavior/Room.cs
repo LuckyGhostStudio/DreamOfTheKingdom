@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 房间
+/// </summary>
 public class Room : MonoBehaviour
 {
     public int column;  // 房间所在列

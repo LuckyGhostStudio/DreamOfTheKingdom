@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,12 +25,21 @@ public class MapGenerator : MonoBehaviour
     private List<Room> rooms = new List<Room>();                    // 房间列表
     private List<LineRenderer> lines = new List<LineRenderer>();    // 连线列表
 
+    public List<RoomDataSO> roomDataList = new List<RoomDataSO>();  // 房间数据列表
+    private Dictionary<RoomType, RoomDataSO> roomDataDict = new Dictionary<RoomType, RoomDataSO>();     // 房间类型-房间数据 字典
+
     private void Awake()
     {
         screenHeight = Camera.main.orthographicSize * 2;
         screenWidth = screenHeight * Camera.main.aspect;
 
         columnWidth = screenWidth / mapConfigData.roomBlueprints.Count;
+
+        // 初始化房间数据字典
+        foreach (RoomDataSO roomData in roomDataList)
+        {
+            roomDataDict.Add(roomData.roomType, roomData);
+        }
     }
 
     private void Start()
@@ -48,7 +58,7 @@ public class MapGenerator : MonoBehaviour
         for (int column = 0; column < mapConfigData.roomBlueprints.Count; column++)
         {
             RoomBlueprint blueprint = mapConfigData.roomBlueprints[column];
-            int amount = Random.Range(blueprint.min, blueprint.max);            // 每列房间数
+            int amount = UnityEngine.Random.Range(blueprint.min, blueprint.max);            // 每列房间数
             float startHeight = screenHeight / 2 - screenHeight / (amount + 1); // 第一行的高度 = 上半高度 - 行高度
             // 每列第一行生成点位置
             generatePoint = new Vector3(-screenWidth / 2 + border + columnWidth * column, startHeight, 0);
@@ -67,11 +77,13 @@ public class MapGenerator : MonoBehaviour
                 }
                 else if (column != 0)
                 {
-                    newPosition.x = generatePoint.x + Random.Range(-border / 2, border / 2);    // 随机设置左右偏移
+                    newPosition.x = generatePoint.x + UnityEngine.Random.Range(-border / 2, border / 2);    // 随机设置左右偏移
                 }
 
                 newPosition.y = startHeight - lineHeight * i;                                       // 每行的纵坐标
                 Room room = Instantiate(roomPrefab, newPosition, Quaternion.identity, transform);   // 生成房间
+                RoomType newType = GetRandomRoomType(mapConfigData.roomBlueprints[column].roomType);// 随机选择当前列的房间类型
+                room.SetupRoom(column, i, GetRoomData(newType));                                    // 设置房间数据
 
                 rooms.Add(room);
                 currentColumnRooms.Add(room);
@@ -125,7 +137,7 @@ public class MapGenerator : MonoBehaviour
     {
         Room targetRoom;
 
-        targetRoom = column2Rooms[Random.Range(0, column2Rooms.Count)];     // 第二列中随机选择一个房间
+        targetRoom = column2Rooms[UnityEngine.Random.Range(0, column2Rooms.Count)];     // 第二列中随机选择一个房间
 
         LineRenderer line = Instantiate(linePrefab, transform);     // 生成连线
         line.SetPosition(0, room.transform.position);           // 设置起点 room
@@ -158,5 +170,27 @@ public class MapGenerator : MonoBehaviour
 
         // 创建地图
         CreateMap();
+    }
+
+    /// <summary>
+    /// 根据房间类型返回房间数据
+    /// </summary>
+    /// <param name="roomType">房间类型</param>
+    /// <returns>房间数据</returns>
+    private RoomDataSO GetRoomData(RoomType roomType)
+    {
+        return roomDataDict[roomType];
+    }
+
+    /// <summary>
+    /// 返回随机房间类型
+    /// </summary>
+    /// <param name="flags">房间类型 Flags</param>
+    /// <returns>房间类型</returns>
+    private RoomType GetRandomRoomType(RoomType flags)
+    {
+        string[] options = flags.ToString().Split(',');                                 // 拆分类型列表为 string
+        string randomTypeOption = options[UnityEngine.Random.Range(0, options.Length)]; // 随机选择类型
+        return (RoomType)Enum.Parse(typeof(RoomType), randomTypeOption);                // 返回房间类型
     }
 }

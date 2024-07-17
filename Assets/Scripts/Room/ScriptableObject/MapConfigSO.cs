@@ -18,5 +18,5 @@ public class MapConfigSO : ScriptableObject
 public class RoomBlueprint
 {
     public int min, max;        // 最小房间数 最大房间数
-    public RoomType roomType;   // 房间了类型
+    public RoomType roomType;   // 房间类型（多种类型）
 }

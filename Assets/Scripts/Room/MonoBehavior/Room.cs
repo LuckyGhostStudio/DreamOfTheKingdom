@@ -34,7 +34,7 @@ public class Room : MonoBehaviour
     /// <param name="column">房间所在列</param>
     /// <param name="line">房间所在行</param>
     /// <param name="roomData">房间数据</param>
-    private void SetupRoom(int column, int line, RoomDataSO roomData)
+    public void SetupRoom(int column, int line, RoomDataSO roomData)
     {
         this.line = line;
         this.column = column;

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ccb5a998353ad649aec438d101aab7f, type: 3}
-  m_Name: BossRoom
+  m_Name: TreasureRoomData
   m_EditorClassIdentifier: 
-  roomIcon: {fileID: 21300000, guid: 8e5bebd214d59430d8dff7bb4e40f292, type: 3}
-  roomType: 32
+  roomIcon: {fileID: 21300000, guid: 0ce208f8f0a7e4b7c85456c91a775378, type: 3}
+  roomType: 4
   sceneToLoad:
-    m_AssetGUID: 
+    m_AssetGUID: 4c5b605cf34cead4aa2056796b225502
     m_SubObjectName: 
     m_SubObjectGUID: 
     m_SubObjectType: 

@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: MapConfigSO
   m_EditorClassIdentifier: 
   roomBlueprints:
-  - min: 2
-    max: 4
+  - min: 3
+    max: 5
     roomType: 1
   - min: 2
-    max: 4
+    max: 5
     roomType: 3
   - min: 2
-    max: 4
+    max: 5
     roomType: 26
   - min: 4
     max: 5
     roomType: 30
-  - min: 2
+  - min: 3
     max: 5
     roomType: 6
-  - min: 2
+  - min: 3
     max: 4
     roomType: 16
   - min: 1

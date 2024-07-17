@@ -301,6 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapConfigData: {fileID: 11400000, guid: fc230e361c98cfd42b599e21c541abb7, type: 2}
   roomPrefab: {fileID: 7144346884788610161, guid: d3484cf537a2f204fad3ee294c394f88, type: 3}
+  border: 1
 --- !u!1 &1813217519
 GameObject:
   m_ObjectHideFlags: 0

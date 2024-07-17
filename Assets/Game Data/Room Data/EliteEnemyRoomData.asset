@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ccb5a998353ad649aec438d101aab7f, type: 3}
   m_Name: EliteEnemyRoomData
   m_EditorClassIdentifier: 
-  roomIcon: {fileID: 21300000, guid: 84605f03162064daa87d5f4cb8444457, type: 3}
+  roomIcon: {fileID: 21300000, guid: dc5d58ad7051e4f9b838d0b9d987ff6b, type: 3}
   roomType: 2
   sceneToLoad:
     m_AssetGUID: 11c0ad4c6b60a0b43abe0e756e01a94a

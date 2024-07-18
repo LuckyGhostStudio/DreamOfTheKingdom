@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// 地图生成器
@@ -98,6 +99,9 @@ public class MapGenerator : MonoBehaviour
                 newPosition.y = startHeight - lineHeight * i;                                       // 每行的纵坐标
                 Room room = Instantiate(roomPrefab, newPosition, Quaternion.identity, transform);   // 生成房间
                 RoomType newType = GetRandomRoomType(mapConfigData.roomBlueprints[column].roomType);// 随机选择当前列的房间类型
+                room.name = newType.ToString() + "Room";
+                room.roomState = column == 0 ? RoomState.Attainable : RoomState.Locked;             // 设置房间状态（第一列可达）
+
                 room.SetupRoom(column, i, GetRoomData(newType));                                    // 设置房间数据
 
                 rooms.Add(room);
@@ -128,7 +132,7 @@ public class MapGenerator : MonoBehaviour
         // 第一列随机连接到第二列
         foreach (var room in column1Rooms)
         {
-            Room targetRoom = ConnectToRandomRoom(room, column2Rooms);  // 当前房间随机连接到第二列中的某个
+            Room targetRoom = ConnectToRandomRoom(room, column2Rooms, false);  // 当前房间随机连接到第二列中的某个
             connectedColumn2Rooms.Add(targetRoom);
         }
 
@@ -138,7 +142,7 @@ public class MapGenerator : MonoBehaviour
             // 该房间未连接
             if (!connectedColumn2Rooms.Contains(room))
             {
-                ConnectToRandomRoom(room, column1Rooms);    // 当前房间随机连接到第一列
+                ConnectToRandomRoom(room, column1Rooms, true);    // 当前房间随机连接到第一列
             }
         }
     }
@@ -148,13 +152,22 @@ public class MapGenerator : MonoBehaviour
     /// </summary>
     /// <param name="room">当前房间</param>
     /// <param name="column2Rooms">第二列房间</param>
-    /// <param name="forward">是否为正向连接</param>
+    /// <param name="check">是否为反向连接</param>
     /// <returns>连接到的第二列中的房间</returns>
-    private Room ConnectToRandomRoom(Room room, List<Room> column2Rooms)
+    private Room ConnectToRandomRoom(Room room, List<Room> column2Rooms, bool check)
     {
         Room targetRoom;
 
         targetRoom = column2Rooms[UnityEngine.Random.Range(0, column2Rooms.Count)];     // 第二列中随机选择一个房间
+
+        if (check)
+        {
+            targetRoom.nexts.Add(new Vector2Int(room.column, room.line));           // 添加到可到达的房间列表
+        }
+        else
+        {
+            room.nexts.Add(new Vector2Int(targetRoom.column, targetRoom.line));     // 添加到可到达的房间列表
+        }
 
         LineRenderer line = Instantiate(linePrefab, transform);     // 生成连线
         line.SetPosition(0, room.transform.position);               // 设置起点 room
@@ -229,6 +242,7 @@ public class MapGenerator : MonoBehaviour
             mapRoomData.line = rooms[i].line;
             mapRoomData.roomData = rooms[i].roomData;
             mapRoomData.roomState = rooms[i].roomState;
+            mapRoomData.nexts = rooms[i].nexts;
 
             mapLayoutData.mapRoomDataList.Add(mapRoomData);     // 添加房间数据
         }
@@ -259,8 +273,10 @@ public class MapGenerator : MonoBehaviour
 
             Vector3 newPosition = new Vector3(mapRoomData.posX, mapRoomData.posY, 0);
             Room room = Instantiate(roomPrefab, newPosition, Quaternion.identity);  // 生成房间
+            room.name = mapRoomData.roomData.roomType.ToString() + "Room";
             room.roomState = mapRoomData.roomState;
             room.SetupRoom(mapRoomData.column, mapRoomData.line, mapRoomData.roomData);
+            room.nexts = mapRoomData.nexts;
 
             rooms.Add(room);    // 添加到列表
         }

@@ -21,6 +21,7 @@ public class MapRoomData
     public int column, line;        // 列行
     public RoomDataSO roomData;     // 房间数据
     public RoomState roomState;     // 房间状态
+    public List<Vector2Int> nexts;  // 当前房间可到达的房间坐标列表
 }
 
 /// <summary>

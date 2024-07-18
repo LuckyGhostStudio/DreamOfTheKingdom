@@ -8,22 +8,30 @@ public class SceneLoadManager : MonoBehaviour
     private AssetReference currentScene;    // 当前要加载的场景
     public AssetReference mapScene;         // Map 场景
 
+    private Vector2Int currentRoomVector;    // 当前房间的坐标
+
+    [Header("广播")]
+    public ObjectEventSO afterRoomLoadedEvent;  // 房间加载完成事件
+
     /// <summary>
     /// 加载房间场景：房间加载事件监听
     /// </summary>
     /// <param name="data">数据</param>
     public async void OnLoadRoomEvent(object data)
     {
-        if (data is RoomDataSO)
+        if (data is Room)
         {
-            RoomDataSO currentData = (RoomDataSO)data;
-            Debug.Log(currentData.roomType);
+            Room currentRoom = data as Room;
+            RoomDataSO currentRoomData = currentRoom.roomData;
+            currentRoomVector = new Vector2Int(currentRoom.column, currentRoom.line);
 
-            currentScene = currentData.sceneToLoad; // 当前房间的场景
+            currentScene = currentRoomData.sceneToLoad;     // 当前房间的场景
         }
 
         await UnloadSceneTask();    // 卸载已激活的场景
         await LoadSceneTask();      // 加载场景
+
+        afterRoomLoadedEvent.RaiseEvent(currentRoomVector, this);   // 触发房间加载完成事件
     }
 
     /// <summary>

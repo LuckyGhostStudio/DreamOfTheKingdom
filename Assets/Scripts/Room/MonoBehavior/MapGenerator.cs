@@ -11,6 +11,9 @@ public class MapGenerator : MonoBehaviour
     [Header("地图配置表")]
     public MapConfigSO mapConfigData;   // 地图配置数据
 
+    [Header("地图布局")]
+    public MapLayoutSO mapLayoutData;   // 地图布局数据
+
     [Header("预制体")]
     public Room roomPrefab;             // 房间 Prefab
     public LineRenderer linePrefab;     // Line Prefab
@@ -42,9 +45,21 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    private void Start()
+    //private void Start()
+    //{
+    //    CreateMap();
+    //}
+
+    private void OnEnable()
     {
-        CreateMap();
+        if (mapLayoutData.mapRoomDataList.Count > 0)
+        {
+            LoadMap();      // 加载地图
+        }
+        else
+        {
+            CreateMap();    // 创建地图
+        }
     }
 
     /// <summary>
@@ -97,6 +112,8 @@ public class MapGenerator : MonoBehaviour
 
             previousColumnRooms = currentColumnRooms;   // 是第一列 前一列为当前列
         }
+
+        SaveMap();  // 保存地图
     }
 
     /// <summary>
@@ -140,8 +157,8 @@ public class MapGenerator : MonoBehaviour
         targetRoom = column2Rooms[UnityEngine.Random.Range(0, column2Rooms.Count)];     // 第二列中随机选择一个房间
 
         LineRenderer line = Instantiate(linePrefab, transform);     // 生成连线
-        line.SetPosition(0, room.transform.position);           // 设置起点 room
-        line.SetPosition(1, targetRoom.transform.position);     // 设置终点 targetRoom
+        line.SetPosition(0, room.transform.position);               // 设置起点 room
+        line.SetPosition(1, targetRoom.transform.position);         // 设置终点 targetRoom
 
         lines.Add(line);
 
@@ -192,5 +209,72 @@ public class MapGenerator : MonoBehaviour
         string[] options = flags.ToString().Split(',');                                 // 拆分类型列表为 string
         string randomTypeOption = options[UnityEngine.Random.Range(0, options.Length)]; // 随机选择类型
         return (RoomType)Enum.Parse(typeof(RoomType), randomTypeOption);                // 返回房间类型
+    }
+
+    /// <summary>
+    /// 保存地图
+    /// </summary>
+    private void SaveMap()
+    {
+        mapLayoutData.mapRoomDataList = new List<MapRoomData>();    // 地图的房间数据列表
+
+        // 保存地图上所有已生成的房间的数据
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            MapRoomData mapRoomData = new MapRoomData();
+
+            mapRoomData.posX = rooms[i].transform.position.x;
+            mapRoomData.posY = rooms[i].transform.position.y;
+            mapRoomData.column = rooms[i].column;
+            mapRoomData.line = rooms[i].line;
+            mapRoomData.roomData = rooms[i].roomData;
+            mapRoomData.roomState = rooms[i].roomState;
+
+            mapLayoutData.mapRoomDataList.Add(mapRoomData);     // 添加房间数据
+        }
+
+        mapLayoutData.linePositionList = new List<LinePosition>();  // 房间连线列表
+
+        // 保存房间之间的连线数据
+        for (int i = 0; i < lines.Count; i++)
+        {
+            LinePosition line = new LinePosition();
+
+            line.startPos = new SerializeVector3(lines[i].GetPosition(0));
+            line.endPos = new SerializeVector3(lines[i].GetPosition(1));
+
+            mapLayoutData.linePositionList.Add(line);   // 添加连线数据
+        }
+    }
+
+    /// <summary>
+    /// 加载地图
+    /// </summary>
+    private void LoadMap()
+    {
+        // 生成房间
+        for (int i = 0; i < mapLayoutData.mapRoomDataList.Count; i++)
+        {
+            MapRoomData mapRoomData = mapLayoutData.mapRoomDataList[i];
+
+            Vector3 newPosition = new Vector3(mapRoomData.posX, mapRoomData.posY, 0);
+            Room room = Instantiate(roomPrefab, newPosition, Quaternion.identity);  // 生成房间
+            room.roomState = mapRoomData.roomState;
+            room.SetupRoom(mapRoomData.column, mapRoomData.line, mapRoomData.roomData);
+
+            rooms.Add(room);    // 添加到列表
+        }
+
+        // 生成连线
+        for (int i = 0; i < mapLayoutData.linePositionList.Count; i++)
+        {
+            LinePosition linePos = mapLayoutData.linePositionList[i];
+
+            LineRenderer line = Instantiate(linePrefab, transform);     // 生成连线
+            line.SetPosition(0, linePos.startPos.ToVector3());          // 设置起点
+            line.SetPosition(1, linePos.endPos.ToVector3());          // 设置终点
+
+            lines.Add(line);    // 添加到列表
+        }
     }
 }

@@ -428,7 +428,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.6895337, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1153542576
 MonoBehaviour:
@@ -442,6 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1c916468fa06e49997d06d5db31841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadMapEvent: {fileID: 11400000, guid: bfeca9400562a734abeb8d5cfcd0183f, type: 2}
 --- !u!1 &1970152435
 GameObject:
   m_ObjectHideFlags: 0

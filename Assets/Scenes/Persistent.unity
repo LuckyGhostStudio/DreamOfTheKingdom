@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 2059056876}
   - component: {fileID: 2059056877}
   - component: {fileID: 2059056878}
+  - component: {fileID: 2059056879}
   m_Layer: 0
   m_Name: SceneLoad Manager
   m_TagString: Untagged
@@ -331,6 +332,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa52ce09bb95c54ca45a6b0053db570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapScene:
+    m_AssetGUID: c3ce061dc39624b4881c01c4b46cb222
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &2059056878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +358,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SceneLoadManager, Assembly-CSharp
         m_MethodName: OnLoadRoomEvent
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2059056879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059056875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec2d7c2cedb5145499822791fc7036c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: bfeca9400562a734abeb8d5cfcd0183f, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2059056877}
+        m_TargetAssemblyTypeName: SceneLoadManager, Assembly-CSharp
+        m_MethodName: LoadMap
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

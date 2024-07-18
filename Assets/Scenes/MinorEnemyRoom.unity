@@ -442,6 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1c916468fa06e49997d06d5db31841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadMapEvent: {fileID: 11400000, guid: bfeca9400562a734abeb8d5cfcd0183f, type: 2}
 --- !u!1 &1970152435
 GameObject:
   m_ObjectHideFlags: 0

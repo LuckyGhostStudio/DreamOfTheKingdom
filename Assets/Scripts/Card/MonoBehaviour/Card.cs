@@ -25,7 +25,7 @@ public class Card : MonoBehaviour
         typeText.text = data.cardType switch
         {
             CardType.Attack => "攻击",
-            CardType.Defense => "技能",
+            CardType.Defense => "防御",
             CardType.Abilities => "能力",
             _ => throw new System.NotImplementedException(),
         };

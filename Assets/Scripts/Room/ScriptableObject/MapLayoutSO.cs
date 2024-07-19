@@ -30,6 +30,6 @@ public class MapRoomData
 [System.Serializable]
 public class LinePosition
 {
-    public SerializeVector3 startPos;
-    public SerializeVector3 endPos;
+    public SerializeVector3 startPos;   // Æðµã
+    public SerializeVector3 endPos;     // ÖÕµã
 }

@@ -23,3 +23,13 @@ public enum RoomState
     Visited,    // 已访问
     Attainable  // 可到达
 }
+
+/// <summary>
+/// 卡牌类型
+/// </summary>
+public enum CardType
+{
+    Attack,     // 攻击
+    Defense,    // 防御
+    Abilities,  // 能力
+}

@@ -61,7 +61,7 @@ public class Room : MonoBehaviour
         spriteRenderer.color = roomState switch
         {
             RoomState.Locked => new Color(0.5f, 0.5f, 0.5f, 1.0f),
-            RoomState.Visited => new Color(0.5f, 0.8f, 0.5f, 0.8f),
+            RoomState.Visited => new Color(0.5f, 0.8f, 0.8f, 0.9f),
             RoomState.Attainable => Color.white,
             _ => throw new System.NotImplementedException(),
         };

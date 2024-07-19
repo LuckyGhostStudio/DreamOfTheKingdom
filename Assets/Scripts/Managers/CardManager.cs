@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -9,11 +10,22 @@ public class CardManager : MonoBehaviour
     public PoolTool poolTool;
     public List<CardDataSO> cardDataList;   // 卡牌数据列表
 
+    [Header("卡牌库")]
+    public CardLibrarySO newGameCardLibraryData;    // 新游戏初始卡牌库
+    public CardLibrarySO currentCardLibraryData;    // 当前持有的卡牌库
+
     private void Awake()
     {
         InitaliezCardDataList();
+
+        // 初始化当前持有的卡牌库
+        foreach (var card in newGameCardLibraryData.cardLibraryList)
+        {
+            currentCardLibraryData.cardLibraryList.Add(card);
+        }
     }
 
+    #region 加载卡牌数据
     /// <summary>
     /// 初始化卡牌数据列表
     /// </summary>
@@ -37,5 +49,24 @@ public class CardManager : MonoBehaviour
         {
             Debug.LogError("No Card Data Found.");
         }
+    }
+    #endregion
+
+    /// <summary>
+    /// 获取卡牌
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetCardObject()
+    {
+        return poolTool.GetObjectFromPool();
+    }
+
+    /// <summary>
+    /// 释放卡牌
+    /// </summary>
+    /// <param name="card"></param>
+    public void DiscardCardObject(GameObject card)
+    {
+        poolTool.ReleaseObjectToPool(card);
     }
 }

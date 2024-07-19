@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855f28ab095ecda4488879bee3de7267, type: 3}
   m_Name: PowerCardData
   m_EditorClassIdentifier: 
-  cardName: "\u653B\u51FB"
-  cardImage: {fileID: 21300000, guid: 28a02df1369b7fd4eab040459b0cc450, type: 3}
+  cardName: "\u529B\u91CF\u62F3\u5957"
+  cardImage: {fileID: 21300000, guid: ab2c0effa4522104dbdb381ab0b16a7b, type: 3}
   cost: 1
-  cardType: 0
-  description: "\u5BF9\u76EE\u6807\u9020\u6210<color=\"white\">6</color>\u70B9\u4F24\u5BB3"
+  cardType: 2
+  description: "\u589E\u52A0<color=\"white\">50%</color>\u7684\u4F24\u5BB3\u503C"

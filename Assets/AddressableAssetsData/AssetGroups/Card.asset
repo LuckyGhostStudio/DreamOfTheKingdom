@@ -15,6 +15,24 @@ MonoBehaviour:
   m_GroupName: Card
   m_GUID: 9daa38f848c9efe4da8f4f381b03dcd5
   m_SerializeEntries:
+  - m_GUID: 5c4e1eb742ec139489a180829f3d72f7
+    m_Address: PowerCardData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CardData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63c2e208bcc26774e8a9abec406f0324
+    m_Address: AttackCardData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CardData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aacaf99d11aadb641833a9090f7773f6
+    m_Address: AppleCardData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CardData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc1b9dda0189d4e48970b4e5ac26d558
     m_Address: DefenseCardData
     m_ReadOnly: 0

@@ -6,7 +6,8 @@ using UnityEngine;
 /// </summary>
 public class CardDeck : MonoBehaviour
 {
-    public CardManager cardManager;
+    public CardManager cardManager;             // 卡牌管理器
+    public CardLayoutManager cardLayoutManager; // 卡牌布局管理器
 
     private List<CardDataSO> drawDeck = new List<CardDataSO>();      // 待抽牌堆
     private List<CardDataSO> discardDeck = new List<CardDataSO>();   // 弃牌堆
@@ -16,6 +17,7 @@ public class CardDeck : MonoBehaviour
     private void Start()
     {
         InitalizeDeck();
+        DrawCard(3);
     }
 
     /// <summary>
@@ -60,6 +62,21 @@ public class CardDeck : MonoBehaviour
             Card card = cardManager.GetCardObject().GetComponent<Card>();   // 从对象池获取一个 Card 对象
             card.Init(currentCardData);     // 使用抽出的卡牌数据初始化卡牌
             handCardObjectList.Add(card);   // 添加到手牌列表
+        }
+
+        SetCardLayout();    // 设置手牌布局
+    }
+
+    /// <summary>
+    /// 设置卡牌布局
+    /// </summary>
+    private void SetCardLayout()
+    {
+        for (int i = 0; i < handCardObjectList.Count; i++)
+        {
+            Card currentCard = handCardObjectList[i];
+            CardTransform cardTransform = cardLayoutManager.GetCardTransform(i, handCardObjectList.Count);  // 计算卡牌位置和旋转
+            currentCard.transform.SetPositionAndRotation(cardTransform.position, cardTransform.rotation);   // 设置卡牌位置和旋转
         }
     }
 }

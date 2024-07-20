@@ -550,7 +550,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330917155}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -784,8 +784,8 @@ SceneRoots:
   - {fileID: 1908705269}
   - {fileID: 2059056876}
   - {fileID: 318971631}
-  - {fileID: 1373883961}
   - {fileID: 805921885}
+  - {fileID: 1330917157}
+  - {fileID: 1373883961}
   - {fileID: 326015876}
   - {fileID: 1356348229}
-  - {fileID: 1330917157}

@@ -78,7 +78,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <summary>
     /// ÷ÿ÷√ø®≈∆ Transform
     /// </summary>
-    private void ResetCardTransform()
+    public void ResetCardTransform()
     {
         if (isAnimatiing) return;
         transform.position = originalPosition;

@@ -25,6 +25,11 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        currentCardLibraryData.cardLibraryList.Clear();     // 清空当前持有的卡牌库
+    }
+
     #region 加载卡牌数据
     /// <summary>
     /// 初始化卡牌数据列表
@@ -58,7 +63,9 @@ public class CardManager : MonoBehaviour
     /// <returns></returns>
     public GameObject GetCardObject()
     {
-        return poolTool.GetObjectFromPool();
+        GameObject cardObj = poolTool.GetObjectFromPool();
+        cardObj.transform.localScale = Vector3.zero;    // 初始化大小为 0
+        return cardObj;
     }
 
     /// <summary>

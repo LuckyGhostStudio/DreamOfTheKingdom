@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// 牌堆
@@ -8,6 +10,8 @@ public class CardDeck : MonoBehaviour
 {
     public CardManager cardManager;             // 卡牌管理器
     public CardLayoutManager cardLayoutManager; // 卡牌布局管理器
+
+    public Vector3 deckPosition;    // 牌堆发牌位置
 
     private List<CardDataSO> drawDeck = new List<CardDataSO>();      // 待抽牌堆
     private List<CardDataSO> discardDeck = new List<CardDataSO>();   // 弃牌堆
@@ -60,8 +64,9 @@ public class CardDeck : MonoBehaviour
             drawDeck.RemoveAt(0);                       // 移除该卡牌
 
             Card card = cardManager.GetCardObject().GetComponent<Card>();   // 从对象池获取一个 Card 对象
-            card.Init(currentCardData);     // 使用抽出的卡牌数据初始化卡牌
-            handCardObjectList.Add(card);   // 添加到手牌列表
+            card.Init(currentCardData);             // 使用抽出的卡牌数据初始化卡牌
+            card.transform.position = deckPosition; // 初始位置
+            handCardObjectList.Add(card);           // 添加到手牌列表
         }
 
         SetCardLayout();    // 设置手牌布局
@@ -76,7 +81,17 @@ public class CardDeck : MonoBehaviour
         {
             Card currentCard = handCardObjectList[i];
             CardTransform cardTransform = cardLayoutManager.GetCardTransform(i, handCardObjectList.Count);  // 计算卡牌位置和旋转
-            currentCard.transform.SetPositionAndRotation(cardTransform.position, cardTransform.rotation);   // 设置卡牌位置和旋转
+            //currentCard.transform.SetPositionAndRotation(cardTransform.position, cardTransform.rotation);   // 设置卡牌位置和旋转
+
+            float delay = Mathf.Log10(1.2f + i);     // 每张牌移动延迟
+            // 卡牌从 0 缩放到 1 动画
+            currentCard.transform.DOScale(Vector3.one, 0.2f).SetDelay(delay).onComplete = () =>
+            {
+                currentCard.transform.DOMove(cardTransform.position, 0.5f);             // 卡牌从初始位置移动到目标位置 缩放结束时执行
+                currentCard.transform.DORotateQuaternion(cardTransform.rotation, 0.5f); // 旋转到目标值
+            };
+
+            currentCard.GetComponent<SortingGroup>().sortingOrder = i;  // 设置卡牌 sorting layer
         }
     }
 }

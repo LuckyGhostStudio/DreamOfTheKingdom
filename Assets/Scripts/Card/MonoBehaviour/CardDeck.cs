@@ -39,7 +39,7 @@ public class CardDeck : MonoBehaviour
             }
         }
 
-        // TODO 洗牌 更新抽牌或弃牌列表
+        ShuffleDeck();  // 洗牌
     }
 
     [ContextMenu("抽牌测试")]
@@ -56,12 +56,18 @@ public class CardDeck : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            if (drawDeck.Count <= 0)
-            {
-                // TODO 洗牌 更新抽牌或弃牌列表
-            }
             CardDataSO currentCardData = drawDeck[0];   // 抽出第 0 张卡牌
             drawDeck.RemoveAt(0);                       // 移除该卡牌
+
+            if (drawDeck.Count <= 0)
+            {
+                // 将弃牌堆的卡牌添加到待抽列表
+                foreach (var cardDara in discardDeck)
+                {
+                    drawDeck.Add(cardDara);
+                }
+                ShuffleDeck();  // 洗牌
+            }
 
             Card card = cardManager.GetCardObject().GetComponent<Card>();   // 从对象池获取一个 Card 对象
             card.Init(currentCardData);             // 使用抽出的卡牌数据初始化卡牌
@@ -99,5 +105,38 @@ public class CardDeck : MonoBehaviour
             currentCard.GetComponent<SortingGroup>().sortingOrder = i;  // 设置卡牌 sorting layer
             currentCard.UpdatePositionAndRotation(cardTransform.position, cardTransform.rotation);  // 更新原角度和旋转
         }
+    }
+
+    /// <summary>
+    /// 洗牌
+    /// </summary>
+    private void ShuffleDeck()
+    {
+        discardDeck.Clear();    // 清空弃牌堆
+
+        // TODO: 更新UI
+
+        for (int i = 0; i < drawDeck.Count; i++)
+        {
+            int randomIndex = Random.Range(i, drawDeck.Count);  // 获取随机下标
+            // 交换
+            CardDataSO temp = drawDeck[i];
+            drawDeck[i] = drawDeck[randomIndex];
+            drawDeck[randomIndex] = temp;
+        }
+    }
+
+    /// <summary>
+    /// 弃牌
+    /// </summary>
+    /// <param name="card">卡牌</param>
+    public void DiscardCard(Card card)
+    {
+        discardDeck.Add(card.cardData);     // 添加到弃牌堆
+        handCardObjectList.Remove(card);    // 从手牌中移除
+
+        cardManager.DiscardCardObject(card.gameObject);     // 将卡牌释放回对象池
+
+        SetCardLayout();    // 重新设置手牌布局
     }
 }

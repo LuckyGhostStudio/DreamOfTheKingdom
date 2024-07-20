@@ -82,15 +82,22 @@ public class CardDeck : MonoBehaviour
             Card currentCard = handCardObjectList[i];
             CardTransform cardTransform = cardLayoutManager.GetCardTransform(i, handCardObjectList.Count);  // 计算卡牌位置和旋转
 
+            currentCard.isAnimatiing = true;    // 正在动画
+
             float delay = Mathf.Log10(1.2f + i);     // 每张牌移动延迟
             // 卡牌从 0 缩放到 1 动画
-            currentCard.transform.DOScale(Vector3.one, 0.2f).SetDelay(delay).onComplete = () =>
+            currentCard.transform.DOScale(Vector3.one, 0.2f).SetDelay(delay).onComplete = () => // 缩放结束时执行
             {
-                currentCard.transform.DOMove(cardTransform.position, 0.3f);             // 卡牌从初始位置移动到目标位置 缩放结束时执行
+                // 卡牌从初始位置移动到目标位置
+                currentCard.transform.DOMove(cardTransform.position, 0.3f).onComplete = () =>   // 移动结束时执行
+                {
+                    currentCard.isAnimatiing = false;   // 动画结束
+                };
                 currentCard.transform.DORotateQuaternion(cardTransform.rotation, 0.5f); // 旋转到目标值
             };
 
             currentCard.GetComponent<SortingGroup>().sortingOrder = i;  // 设置卡牌 sorting layer
+            currentCard.UpdatePositionAndRotation(cardTransform.position, cardTransform.rotation);  // 更新原角度和旋转
         }
     }
 }

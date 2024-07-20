@@ -7,10 +7,19 @@ public class CardLayoutManager : MonoBehaviour
     public float maxWidth = 7.0f;       // 一排卡牌总宽度（最左卡牌位置到最右卡牌位置距离）
     public float currentSpacing = 2.0f; // 卡牌当前的间隙
 
-    public Vector3 centerPoint;     // 中心点坐标
+    [Header("弧形参数")]
+    public float angleBetweenCards = 7f;    // 两张卡牌之间的角度差
+    public float radius = 17f;              // 弧形半径
+
+    public Vector3 centerPoint;     // 卡牌布局中心点坐标
 
     private List<Vector3> cardPositions = new List<Vector3>();          // 卡牌位置列表
     private List<Quaternion> cardRotations = new List<Quaternion>();    // 卡牌旋转列表
+
+    private void Awake()
+    {
+        centerPoint = isHorizontal ? Vector3.up * -4.5f : Vector3.up * -21.5f;
+    }
 
     /// <summary>
     /// 返回卡牌位置和旋转
@@ -52,5 +61,33 @@ public class CardLayoutManager : MonoBehaviour
                 cardRotations.Add(rot);
             }
         }
+        else
+        {
+            float cardAngle = angleBetweenCards * (numberOfCards - 1) / 2;  // 当前角度
+
+            for (int i = 0; i < numberOfCards; i++)
+            {
+                float zRotAngle = cardAngle - i * angleBetweenCards;                // z 轴旋转值
+                Vector3 pos = FanCardPosition(zRotAngle);                           // 卡牌位置
+                Quaternion rot = Quaternion.Euler(new Vector3(0, 0, zRotAngle));    // 旋转值
+
+                cardPositions.Add(pos);
+                cardRotations.Add(rot);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 计算扇形卡牌位置
+    /// </summary>
+    /// <param name="angle">角度</param>
+    /// <returns></returns>
+    private Vector3 FanCardPosition(float angle)
+    {
+        return new Vector3(
+            centerPoint.x - Mathf.Sin(angle * Mathf.Deg2Rad) * radius,
+            centerPoint.y + Mathf.Cos(angle * Mathf.Deg2Rad) * radius,
+            0
+        );
     }
 }

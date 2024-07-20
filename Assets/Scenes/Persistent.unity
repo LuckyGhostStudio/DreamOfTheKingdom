@@ -536,9 +536,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e7137235ee4ca4e839730c62370257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHorizontal: 1
+  isHorizontal: 0
   maxWidth: 7
   currentSpacing: 2
+  angleBetweenCards: 7
+  radius: 17
   centerPoint: {x: 0, y: -4.5, z: 0}
 --- !u!4 &1330917157
 Transform:
@@ -586,6 +588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardManager: {fileID: 805921884}
   cardLayoutManager: {fileID: 1330917156}
+  deckPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1356348229
 Transform:
   m_ObjectHideFlags: 0

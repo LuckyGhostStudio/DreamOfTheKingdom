@@ -9,6 +9,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private GameObject currentArrow;    // 当前的箭头
 
     private Card currentCard;
+
     private bool canMoved;      // 可以移动（防御 回血等）
     private bool canExecuted;   // 可以执行对应技能（攻击等）
 
@@ -17,6 +18,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void Awake()
     {
         currentCard = GetComponent<Card>();
+    }
+
+    private void OnDisable()
+    {
+        canMoved = false;
+        canExecuted = false;
     }
 
     /// <summary>

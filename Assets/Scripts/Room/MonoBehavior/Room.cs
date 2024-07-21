@@ -16,7 +16,7 @@ public class Room : MonoBehaviour
 
     public List<Vector2Int> nexts;  // 当前房间可到达的房间的位置列表
 
-    [Header("广播")]
+    [Header("加载房间事件广播")]
     public ObjectEventSO loadRoomEvent;   // 加载房间场景事件 SO
 
     private void Awake()

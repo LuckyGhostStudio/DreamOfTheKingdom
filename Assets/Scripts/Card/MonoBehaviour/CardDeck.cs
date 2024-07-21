@@ -17,6 +17,12 @@ public class CardDeck : MonoBehaviour
     private List<CardDataSO> discardDeck = new List<CardDataSO>();   // 弃牌堆
     private List<Card> handCardObjectList = new List<Card>();        // 当前手牌（每回合）
 
+    [Header("抽牌堆卡牌数量改变事件广播")]
+    public IntEventSO drawDeckAmountChangedEvent;
+
+    [Header("抽牌堆卡牌数量改变事件广播")]
+    public IntEventSO discardDeckAmountChangedEvent;
+
     // TODO 测试
     private void Start()
     {
@@ -58,6 +64,8 @@ public class CardDeck : MonoBehaviour
         {
             CardDataSO currentCardData = drawDeck[0];   // 抽出第 0 张卡牌
             drawDeck.RemoveAt(0);                       // 移除该卡牌
+
+            drawDeckAmountChangedEvent.RaiseEvent(drawDeck.Count, this);        // 触发抽牌堆数量改变事件
 
             if (drawDeck.Count <= 0)
             {
@@ -114,7 +122,8 @@ public class CardDeck : MonoBehaviour
     {
         discardDeck.Clear();    // 清空弃牌堆
 
-        // TODO: 更新UI
+        drawDeckAmountChangedEvent.RaiseEvent(drawDeck.Count, this);        // 触发抽牌堆数量改变事件
+        discardDeckAmountChangedEvent.RaiseEvent(discardDeck.Count, this);  // 触发弃牌堆数量改变事件
 
         for (int i = 0; i < drawDeck.Count; i++)
         {
@@ -138,6 +147,7 @@ public class CardDeck : MonoBehaviour
         handCardObjectList.Remove(card);    // 从手牌中移除
 
         cardManager.DiscardCardObject(card.gameObject);     // 将卡牌释放回对象池
+        discardDeckAmountChangedEvent.RaiseEvent(discardDeck.Count, this);  // 触发弃牌堆数量改变事件
 
         SetCardLayout();    // 重新设置手牌布局
     }

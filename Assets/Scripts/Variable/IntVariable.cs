@@ -6,6 +6,7 @@ public class IntVariable : ScriptableObject
     public int maxValue;        // 最大值
     public int currentValue;    // 当前值
 
+    [Header("值改变事件")]
     public IntEventSO ValueChangedEvent;     // 值改变事件
 
     [TextArea]

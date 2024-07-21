@@ -23,7 +23,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public Player player;
 
-    [Header("广播事件")]
+    [Header("回收卡牌事件广播")]
     public ObjectEventSO discardCardEvent;  // 回收卡牌事件
 
     private void Start()

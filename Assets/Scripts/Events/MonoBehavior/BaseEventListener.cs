@@ -7,7 +7,10 @@ using UnityEngine.Events;
 /// <typeparam name="T"></typeparam>
 public class BaseEventListener<T> : MonoBehaviour
 {
+    [Header("监听事件 SO")]
     public BaseEventSO<T> eventSO;  // 监听的事件 SO
+
+    [Header("响应事件")]
     public UnityEvent<T> response;  // 响应事件
 
     private void OnEnable()

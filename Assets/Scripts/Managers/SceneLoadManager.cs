@@ -10,7 +10,7 @@ public class SceneLoadManager : MonoBehaviour
 
     private Vector2Int currentRoomVector;    // 当前房间的坐标
 
-    [Header("广播")]
+    [Header("房间加载完成事件广播")]
     public ObjectEventSO afterRoomLoadedEvent;  // 房间加载完成事件
 
     /// <summary>

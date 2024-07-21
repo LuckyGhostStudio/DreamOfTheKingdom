@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84c5bcc814bf08246a83af04c05b659b, type: 3}
-  m_Name: DiscardCard Event
+  m_Script: {fileID: 11500000, guid: 15a4791a9f28b284aaedf0578a03fa57, type: 3}
+  m_Name: DrawDeckAmountChanged Event
   m_EditorClassIdentifier: 
-  description: "\u5361\u724C\u56DE\u6536\u4E8B\u4EF6"
-  lastSender: Card(Clone) (Card)
+  description: "\u62BD\u724C\u5806\u5361\u724C\u6570\u91CF\u6539\u53D8\u4E8B\u4EF6\uFF0C\u901A\u77E5UI\n"
+  lastSender: 

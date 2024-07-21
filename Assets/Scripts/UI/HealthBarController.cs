@@ -3,15 +3,17 @@ using UnityEngine.UIElements;
 
 public class HealthBarController : MonoBehaviour
 {
+    public CharacterBase currentCharacter;  // 当前角色
+
     public Transform healthBarTrans;        // 血条 Transform
     private UIDocument healthBarDocument;   // 血条 UIDocument
     private ProgressBar healthBar;          // 血条 UI
 
     private void Awake()
     {
-        healthBarDocument = GetComponent<UIDocument>();
-        healthBar = healthBarDocument.rootVisualElement.Q<ProgressBar>("HealthBar");
-        MoveToWorldPosition(healthBar, healthBarTrans.position, Vector2.zero);  // 将血条移动到 血条 Transform 位置
+        currentCharacter = GetComponent<CharacterBase>();
+
+        InitHealthBar(); // 初始化 血条
     }
 
     /// <summary>
@@ -29,10 +31,36 @@ public class HealthBarController : MonoBehaviour
     }
 
     [ContextMenu("Set UI Position")]
-    public void SetPosition()
+    public void InitHealthBar()
     {
         healthBarDocument = GetComponent<UIDocument>();
-        healthBar = healthBarDocument.rootVisualElement.Q<ProgressBar>("HealthBar");
+        healthBar = healthBarDocument.rootVisualElement.Q<ProgressBar>("HealthBar");    // 查找 healthBar UI 元素
+        healthBar.highValue = currentCharacter.MaxHP;                           // 设置血条最大值
         MoveToWorldPosition(healthBar, healthBarTrans.position, Vector2.zero);  // 将血条移动到 血条 Transform 位置
+    }
+
+    private void Update()
+    {
+        UpdateHealthBar();
+    }
+
+    /// <summary>
+    /// 更新血条
+    /// </summary>
+    public void UpdateHealthBar()
+    {
+        // 角色死亡
+        if (currentCharacter.isDead)
+        {
+            healthBar.style.display = DisplayStyle.None;    // 关闭显示 UI
+            return;
+        }
+
+        if (healthBar != null)
+        {
+            // 设置血条显示血量
+            healthBar.title = currentCharacter.CurrentHP.ToString() + "/" + currentCharacter.MaxHP.ToString();
+            healthBar.value = currentCharacter.CurrentHP;
+        }
     }
 }

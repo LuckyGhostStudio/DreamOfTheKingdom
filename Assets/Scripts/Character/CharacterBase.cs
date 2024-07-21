@@ -10,7 +10,7 @@ public class CharacterBase : MonoBehaviour
     public int CurrentHP { get => hp.currentValue; set => hp.SetValue(value); } // 当前 HP
     public int MaxHP { get => hp.maxValue; }                                    // 最大 HP
 
-    private bool isDead;
+    public bool isDead;
 
     protected virtual void Awake()
     {

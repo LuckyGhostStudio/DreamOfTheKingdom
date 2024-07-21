@@ -127,11 +127,13 @@ public class CardDeck : MonoBehaviour
     }
 
     /// <summary>
-    /// 弃牌
+    /// 弃牌事件监听
     /// </summary>
-    /// <param name="card">卡牌</param>
-    public void DiscardCard(Card card)
+    /// <param name="cardObj">卡牌对象</param>
+    public void DiscardCard(object cardObj)
     {
+        Card card = cardObj as Card;
+
         discardDeck.Add(card.cardData);     // 添加到弃牌堆
         handCardObjectList.Remove(card);    // 从手牌中移除
 

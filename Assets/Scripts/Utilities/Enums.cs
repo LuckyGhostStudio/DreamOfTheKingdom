@@ -33,3 +33,13 @@ public enum CardType
     Defense,    // 防御
     Abilities,  // 能力
 }
+
+/// <summary>
+/// 效果目标类型
+/// </summary>
+public enum EffectTargetType
+{
+    Self,   // 自己
+    Target, // 目标
+    All     // 全部
+}

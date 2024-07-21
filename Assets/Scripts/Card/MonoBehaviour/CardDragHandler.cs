@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,8 +9,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private GameObject currentArrow;    // 当前的箭头
 
     private Card currentCard;
-    private bool canMoved;      // 可以移动
-    private bool canExecuted;   // 可以执行对应技能
+    private bool canMoved;      // 可以移动（防御 回血等）
+    private bool canExecuted;   // 可以执行对应技能（攻击等）
+
+    private CharacterBase targetCharacter;  // 目标人物
 
     private void Awake()
     {
@@ -39,7 +42,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     /// <summary>
     /// 拖拽中
     /// </summary>
-    /// <param name="eventData"></param>
+    /// <param name="eventData">事件数据</param>
     public void OnDrag(PointerEventData eventData)
     {
         if (canMoved)
@@ -50,6 +53,20 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             currentCard.transform.position = worldPos;                                          // 设置卡牌位置
             
             canExecuted = worldPos.y > 1.0f;     // 卡牌到指定区域时可被执行
+        }
+        else
+        {
+            if (!eventData.pointerEnter) return;
+            
+            // 指针在 Enemy 上
+            if (eventData.pointerEnter.CompareTag("Enemy"))
+            {
+                canExecuted = true;
+                targetCharacter = eventData.pointerEnter.GetComponent<CharacterBase>();     // 获取目标
+                return;
+            }
+            canExecuted = false;
+            targetCharacter = null;
         }
     }
 
@@ -66,11 +83,11 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (canExecuted)    // 可执行对应技能
         {
-
+            currentCard.ExecuteCardEffects(currentCard.player, targetCharacter);    // 执行卡牌效果
         }
         else
         {
-            currentCard.ResetCardTransform();   // 重置位置
+            currentCard.ResetCardTransform();   // 重置卡牌位置
             currentCard.isAnimatiing = false;
         }
     }

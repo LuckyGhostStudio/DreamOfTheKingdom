@@ -21,6 +21,11 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public bool isAnimatiing;   // 正在进行动画
 
+    public Player player;
+
+    [Header("广播事件")]
+    public ObjectEventSO discardCardEvent;  // 回收卡牌事件
+
     private void Start()
     {
         Init(cardData);
@@ -39,6 +44,8 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             CardType.Abilities => "能力",
             _ => throw new System.NotImplementedException(),
         };
+
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     /// <summary>
@@ -84,5 +91,22 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         transform.position = originalPosition;
         transform.rotation = originalRotation;
         GetComponent<SortingGroup>().sortingOrder = originalSortingLayer;
+    }
+
+    /// <summary>
+    /// 执行卡牌效果
+    /// </summary>
+    /// <param name="from">发出者</param>
+    /// <param name="target">目标</param>
+    public void ExecuteCardEffects(CharacterBase from, CharacterBase target)
+    {
+        // TODO 减少对应能量
+        discardCardEvent.RaiseEvent(this, this);    // 触发回收卡牌事件
+
+        // 执行卡牌效果
+        foreach (Effect effect in cardData.effexts)
+        {
+            effect.Execute(from, target);
+        }
     }
 }

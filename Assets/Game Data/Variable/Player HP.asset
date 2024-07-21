@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd19165e66b80a14d8a2ffab22c0399e, type: 3}
   m_Name: Player HP
   m_EditorClassIdentifier: 
-  maxValue: 0
-  currentValue: 0
+  maxValue: 60
+  currentValue: 60
   ValueChangedEvent: {fileID: 11400000, guid: bb2f645844c4c40478357c66eb8ab528, type: 2}
   description: Player HP

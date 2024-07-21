@@ -1,0 +1,38 @@
+/* progress-bar 外层容器 */
+.unity-progress-bar__container {
+	height: 30px;
+	min-height: 30px;
+}
+
+/* progress-bar 滑动条 */
+.unity-progress-bar__progress {
+	height: 22px;
+	border-radius: 7px;		/* 圆角半径 */
+	margin: 2px;
+	background-color: rgb(52, 235, 52);
+	/* 过度动画 从右侧开始 0.5s 擦除类型 背景颜色过渡*/
+	transition: right 0.5s ease-out-circ, background-color 0.5s ease-in-out;
+}
+
+.unity-progress-bar__background {
+	margin: 0px;	/* 与外框距离 */
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 10px;
+	border-color: black;
+	border-width: 2px;
+}
+
+/* 高血量 时的 progress-bar */
+.high-health .unity-progress-bar__progress {
+	background-color: rgb(52, 235, 52);
+}
+
+/* 中血量 时的 progress-bar */
+.medium-health .unity-progress-bar__progress {
+	background-color: rgb(255, 241, 40);
+}
+
+/* 低血量 时的 progress-bar */
+.low-health .unity-progress-bar__progress {
+	background-color: rgb(182, 4, 4);
+}

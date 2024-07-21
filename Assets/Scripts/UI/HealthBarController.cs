@@ -61,6 +61,24 @@ public class HealthBarController : MonoBehaviour
             // 设置血条显示血量
             healthBar.title = currentCharacter.CurrentHP.ToString() + "/" + currentCharacter.MaxHP.ToString();
             healthBar.value = currentCharacter.CurrentHP;
+            // 移除样式表
+            healthBar.RemoveFromClassList("high-health");
+            healthBar.RemoveFromClassList("medium-health");
+            healthBar.RemoveFromClassList("low-health");
+
+            float percent = (float)currentCharacter.CurrentHP / (float)currentCharacter.MaxHP;
+            if (percent < 0.3f)
+            {
+                healthBar.AddToClassList("low-health");     // 添加低血量样式
+            }
+            else if (percent < 0.6f)
+            {
+                healthBar.AddToClassList("medium-health");  // 添加中血量样式
+            }
+            else
+            {
+                healthBar.AddToClassList("high-health");    // 添加高血量样式
+            }
         }
     }
 }

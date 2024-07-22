@@ -69,11 +69,6 @@ public class CardDeck : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            CardDataSO currentCardData = drawDeck[0];   // 抽出第 0 张卡牌
-            drawDeck.RemoveAt(0);                       // 移除该卡牌
-
-            drawDeckAmountChangedEvent.RaiseEvent(drawDeck.Count, this);        // 触发抽牌堆数量改变事件
-
             if (drawDeck.Count <= 0)
             {
                 // 将弃牌堆的卡牌添加到待抽列表
@@ -83,6 +78,11 @@ public class CardDeck : MonoBehaviour
                 }
                 ShuffleDeck();  // 洗牌
             }
+
+            CardDataSO currentCardData = drawDeck[0];   // 抽出第 0 张卡牌
+            drawDeck.RemoveAt(0);                       // 移除该卡牌
+
+            drawDeckAmountChangedEvent.RaiseEvent(drawDeck.Count, this);        // 触发抽牌堆数量改变事件
 
             Card card = cardManager.GetCardObject().GetComponent<Card>();   // 从对象池获取一个 Card 对象
             card.Init(currentCardData);             // 使用抽出的卡牌数据初始化卡牌

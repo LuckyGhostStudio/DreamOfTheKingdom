@@ -17,6 +17,8 @@ public class CharacterBase : MonoBehaviour
     public IntVariable defense; // 防御值值类型
     public int CurrentDefense { get => defense.currentValue; set => defense.SetValue(value); } // 当前 防御值
 
+    public VFXController vFXController;
+
     protected virtual void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -77,5 +79,23 @@ public class CharacterBase : MonoBehaviour
     public virtual void ResetDefense()
     {
         CurrentDefense = 0;
+    }
+
+    /// <summary>
+    /// 恢复血量
+    /// </summary>
+    /// <param name="amount">血量值</param>
+    public virtual void HealHealth(int amount)
+    {
+        CurrentHP += amount;
+
+        if (CurrentHP > MaxHP)
+        {
+            CurrentHP = MaxHP;
+        }
+
+        vFXController.buff.SetActive(true);    // 启用 buff 效果
+
+        Debug.Log("Current HP " + CurrentHP);
     }
 }

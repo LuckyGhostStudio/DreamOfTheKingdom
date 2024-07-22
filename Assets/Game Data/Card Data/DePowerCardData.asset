@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855f28ab095ecda4488879bee3de7267, type: 3}
+  m_Name: DePowerCardData
+  m_EditorClassIdentifier: 
+  cardName: "\u505A\u68A6"
+  cardImage: {fileID: 21300000, guid: 1508f5bbffd8d5f499d422297b332402, type: 3}
+  cost: 2
+  cardType: 0
+  description: "\u51CF\u5C11\u76EE\u6807<color=\"white\">50%</color>\u7684\u4F24\u5BB3\u503C"
+  effexts:
+  - {fileID: 11400000, guid: 5ffe549788ff4624c9e5693afe0d1419, type: 2}

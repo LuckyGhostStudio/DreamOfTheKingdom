@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - CardData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ce9b5337dc06d848872ac57095346fb
+    m_Address: DrawCardData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CardData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aacaf99d11aadb641833a9090f7773f6
     m_Address: AppleCardData
     m_ReadOnly: 0
@@ -35,6 +41,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc1b9dda0189d4e48970b4e5ac26d558
     m_Address: DefenseCardData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - CardData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc8c33e4987207b4a895e8e434a87984
+    m_Address: DePowerCardData
     m_ReadOnly: 0
     m_SerializedLabels:
     - CardData

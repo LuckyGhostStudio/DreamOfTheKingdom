@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: "\u529B\u91CF\u62F3\u5957"
   cardImage: {fileID: 21300000, guid: ab2c0effa4522104dbdb381ab0b16a7b, type: 3}
-  cost: 1
+  cost: 2
   cardType: 2
   description: "\u589E\u52A0<color=\"white\">50%</color>\u7684\u4F24\u5BB3\u503C"
+  effexts:
+  - {fileID: 11400000, guid: ef1123c9eb27ce44fad0df2f8cd17edd, type: 2}

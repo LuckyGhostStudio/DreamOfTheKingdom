@@ -4,6 +4,8 @@ public class CharacterBase : MonoBehaviour
 {
     protected Animator animator;
 
+    public VFXController vFXController;
+
     [Header("血量")]
     public int maxHp;
 
@@ -17,7 +19,12 @@ public class CharacterBase : MonoBehaviour
     public IntVariable defense; // 防御值值类型
     public int CurrentDefense { get => defense.currentValue; set => defense.SetValue(value); } // 当前 防御值
 
-    public VFXController vFXController;
+    [Header("力量效果持续回合数")]
+    public IntVariable strengthRound;   // 力量效果持续回合数（buff or debuff）
+
+    [Header("基础力量值")]
+    public float baseStrength = 1.0f;           // 基础力量值
+    private float strengthEffectValue = 0.5f;   // 力量增效值
 
     protected virtual void Awake()
     {
@@ -28,7 +35,7 @@ public class CharacterBase : MonoBehaviour
     {
         hp.maxValue = maxHp;
         CurrentHP = MaxHP;
-
+        strengthRound.SetValue(0);
         ResetDefense();
     }
 
@@ -88,14 +95,51 @@ public class CharacterBase : MonoBehaviour
     public virtual void HealHealth(int amount)
     {
         CurrentHP += amount;
-
-        if (CurrentHP > MaxHP)
-        {
-            CurrentHP = MaxHP;
-        }
+        CurrentHP = Mathf.Min(CurrentHP, MaxHP);
 
         vFXController.buff.SetActive(true);    // 启用 buff 效果
 
         Debug.Log("Current HP " + CurrentHP);
+    }
+
+    /// <summary>
+    /// 设置力量 buff 或 debuff 值
+    /// </summary>
+    /// <param name="round">增加的可持续回合数</param>
+    /// <param name="isPositive">是否是正面效果</param>
+    public virtual void SetupStrength(int round, bool isBuff)
+    {
+        if (isBuff)
+        {
+            baseStrength = Mathf.Min(baseStrength + strengthEffectValue, 1.5f); // 增加基础力量
+            vFXController.buff.SetActive(true);                                 // 启用 buff 效果
+        }
+        else
+        {
+            baseStrength = 1.0f - strengthEffectValue;  // 减小基础力量
+            vFXController.debuff.SetActive(true);       // 启用 debuff 效果
+        }
+
+        if (baseStrength == 1.0f)       // 力量增益值没有变化
+        {
+            strengthRound.SetValue(0);  // 清除回合数
+        }
+        else
+        {
+            strengthRound.SetValue(strengthRound.currentValue + round);     // 增加持续回合个数
+        }
+    }
+
+    /// <summary>
+    /// 更新力量效果回合数（每回合调用）
+    /// </summary>
+    public void UpdateStrengthRound()
+    {
+        strengthRound.SetValue(strengthRound.currentValue - 1);     // 减少增加的回合数
+        if (strengthRound.currentValue <= 0)
+        {
+            strengthRound.SetValue(0);
+            baseStrength = 1.0f;            // 重置力量效果
+        }
     }
 }

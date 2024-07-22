@@ -10,8 +10,16 @@ public class HealthBarController : MonoBehaviour
     private VisualElement rootElement;      // 根结点元素
 
     private ProgressBar healthBar;          // 血条 UI
+
     private VisualElement defenseElement;   // 防御盾牌 UI
     private Label defenseAmountLabel;       // 防御值 Label
+
+    private VisualElement buffElement;      // buff UI
+    private Label buffRoundLabel;           // buff 回合数 Label
+
+    [Header("Buff 和 Debuff 图片")]
+    public Sprite buffSprite;
+    public Sprite debuffSprite;
 
     private void Awake()
     {
@@ -45,12 +53,17 @@ public class HealthBarController : MonoBehaviour
         defenseElement = rootElement.Q<VisualElement>("Defense");       // 查找防御图标
         defenseAmountLabel = defenseElement.Q<Label>("DefenseAmount");  // 查找防御值 Label
         defenseElement.style.display = DisplayStyle.None;               // 不显示防御图标
+
+        buffElement = rootElement.Q<VisualElement>("Buff");     // 查找 buff 图标
+        buffRoundLabel = buffElement.Q<Label>("BuffRound");     // 查找 buff round 值 Label
+        buffElement.style.display = DisplayStyle.None;          // 不显示 buff 图标
     }
 
     private void Update()
     {
-        UpdateHealthBar();
-        UpdateDefenseElement();
+        UpdateHealthBar();      // 更新血条
+        UpdateDefenseElement(); // 更新防御图标
+        UpdateBuffElement();    // 更新 buff 图标
     }
 
     /// <summary>
@@ -96,9 +109,22 @@ public class HealthBarController : MonoBehaviour
     /// </summary>
     public void UpdateDefenseElement()
     {
-        // 设置防御图标
+        // 设置防御图标可见性
         defenseElement.style.display = currentCharacter.CurrentDefense > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         // 设置防御值
         defenseAmountLabel.text = currentCharacter.CurrentDefense.ToString();
+    }
+
+    /// <summary>
+    /// 更新 Buff 图标
+    /// </summary>
+    public void UpdateBuffElement()
+    {
+        // 设置 buff round 图标可见性
+        buffElement.style.display = currentCharacter.strengthRound.currentValue >= 1 ? DisplayStyle.Flex : DisplayStyle.None;
+        // 设置 buff round 图标
+        buffElement.style.backgroundImage = currentCharacter.baseStrength > 1.0f ? new StyleBackground(buffSprite) : new StyleBackground(debuffSprite);
+        // 设置 buff round 值
+        buffRoundLabel.text = currentCharacter.strengthRound.currentValue.ToString();
     }
 }

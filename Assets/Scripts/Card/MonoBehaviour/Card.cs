@@ -111,12 +111,14 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         costEvent.RaiseEvent(cardData.cost, this);  // 触发卡牌消耗事件
         discardCardEvent.RaiseEvent(this, this);    // 触发回收卡牌事件
-
+        
         // 执行卡牌效果
         foreach (Effect effect in cardData.effexts)
         {
             effect.Execute(from, target);
         }
+
+        Debug.Log(cardData.cardType.ToString() + " 卡牌效果已执行");
     }
 
     /// <summary>

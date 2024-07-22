@@ -6,12 +6,17 @@ public class HealthBarController : MonoBehaviour
     public CharacterBase currentCharacter;  // 当前角色
 
     public Transform healthBarTrans;        // 血条 Transform
-    private UIDocument healthBarDocument;   // 血条 UIDocument
+
+    private VisualElement rootElement;      // 根结点元素
+
     private ProgressBar healthBar;          // 血条 UI
+    private VisualElement defenseElement;   // 防御盾牌 UI
+    private Label defenseAmountLabel;       // 防御值 Label
 
     private void Awake()
     {
         currentCharacter = GetComponent<CharacterBase>();
+        rootElement = GetComponent<UIDocument>().rootVisualElement;
 
         InitHealthBar(); // 初始化 血条
     }
@@ -33,15 +38,19 @@ public class HealthBarController : MonoBehaviour
     [ContextMenu("Set UI Position")]
     public void InitHealthBar()
     {
-        healthBarDocument = GetComponent<UIDocument>();
-        healthBar = healthBarDocument.rootVisualElement.Q<ProgressBar>("HealthBar");    // 查找 healthBar UI 元素
+        healthBar = rootElement.Q<ProgressBar>("HealthBar");                    // 查找 healthBar UI 元素
         healthBar.highValue = currentCharacter.MaxHP;                           // 设置血条最大值
         MoveToWorldPosition(healthBar, healthBarTrans.position, Vector2.zero);  // 将血条移动到 血条 Transform 位置
+
+        defenseElement = rootElement.Q<VisualElement>("Defense");       // 查找防御图标
+        defenseAmountLabel = defenseElement.Q<Label>("DefenseAmount");  // 查找防御值 Label
+        defenseElement.style.display = DisplayStyle.None;               // 不显示防御图标
     }
 
     private void Update()
     {
         UpdateHealthBar();
+        UpdateDefenseElement();
     }
 
     /// <summary>
@@ -80,5 +89,16 @@ public class HealthBarController : MonoBehaviour
                 healthBar.AddToClassList("high-health");    // 添加高血量样式
             }
         }
+    }
+
+    /// <summary>
+    /// 更新防御图标
+    /// </summary>
+    public void UpdateDefenseElement()
+    {
+        // 设置防御图标
+        defenseElement.style.display = currentCharacter.CurrentDefense > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+        // 设置防御值
+        defenseAmountLabel.text = currentCharacter.CurrentDefense.ToString();
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player : CharacterBase
 {
+    [Header("魔法值")]
     public int maxMana;
 
     public IntVariable mana;      // mana 值类型

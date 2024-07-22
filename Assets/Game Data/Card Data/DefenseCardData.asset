@@ -17,3 +17,5 @@ MonoBehaviour:
   cost: 1
   cardType: 1
   description: "\u6DFB\u52A0<color=\"white\">6</color>\u70B9\u9632\u5FA1\u503C"
+  effexts:
+  - {fileID: 11400000, guid: 98384fe54d0de3d4a972cba1ab1c340d, type: 2}

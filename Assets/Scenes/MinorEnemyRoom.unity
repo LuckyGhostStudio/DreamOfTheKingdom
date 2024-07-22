@@ -723,6 +723,7 @@ MonoBehaviour:
   maxHp: 50
   hp: {fileID: 11400000, guid: 62440515a805ec94fab29963d5ab4972, type: 2}
   isDead: 0
+  defense: {fileID: 11400000, guid: b30b7d6f627dc494b8936a69f016b1d9, type: 2}
 --- !u!114 &1881889139
 MonoBehaviour:
   m_ObjectHideFlags: 0

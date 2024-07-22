@@ -103,6 +103,8 @@ public class CardDeck : MonoBehaviour
             Card currentCard = handCardObjectList[i];
             CardTransform cardTransform = cardLayoutManager.GetCardTransform(i, handCardObjectList.Count);  // 计算卡牌位置和旋转
 
+            currentCard.UpdateStatus();         // 更新卡牌状态
+
             currentCard.isAnimatiing = true;    // 正在动画
 
             float delay = Mathf.Log10(1.2f + i);     // 每张牌移动延迟

@@ -856,6 +856,7 @@ MonoBehaviour:
   originalSortingLayer: 0
   isAnimatiing: 0
   player: {fileID: 0}
+  costEvent: {fileID: 11400000, guid: 76b15919bc6f6334bb6a3ebb1966dacd, type: 2}
   discardCardEvent: {fileID: 11400000, guid: c6411fa4be76a654ea3f715dad3d3122, type: 2}
 --- !u!114 &-689124057418399767
 MonoBehaviour:

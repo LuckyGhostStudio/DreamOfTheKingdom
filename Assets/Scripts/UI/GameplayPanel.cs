@@ -58,4 +58,35 @@ public class GameplayPanel : MonoBehaviour
     {
         DiscardDeckAmountLabel.text = amount.ToString();
     }
+
+    /// <summary>
+    /// 更新能量值
+    /// </summary>
+    /// <param name="amount">能量值</param>
+    public void UpdateEnergyAmount(int amount)
+    {
+        energyAmountLabel.text = amount.ToString();
+    }
+
+    /// <summary>
+    /// 敌人回合开始
+    /// </summary>
+    public void OnEnemyTurnBegin()
+    {
+        endTurnButton.SetEnabled(false);    // 回合按钮禁用
+
+        turnLabel.text = "敌人回合";
+        turnLabel.style.color = new StyleColor(Color.red);
+    }
+
+    /// <summary>
+    /// 玩家回合开始
+    /// </summary>
+    public void OnPlayerTurnBegin()
+    {
+        endTurnButton.SetEnabled(true);    // 回合按钮禁用
+
+        turnLabel.text = "玩家回合";
+        turnLabel.style.color = new StyleColor(Color.white);
+    }
 }

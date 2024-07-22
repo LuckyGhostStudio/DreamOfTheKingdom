@@ -20,8 +20,12 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int originalSortingLayer;    // 原 Sorting Layer
 
     public bool isAnimatiing;   // 正在进行动画
+    public bool isAvailiable;   // 是否可用
 
     public Player player;
+
+    [Header("卡牌消耗能量事件广播")]
+    public IntEventSO costEvent;            // 消耗能量事件
 
     [Header("回收卡牌事件广播")]
     public ObjectEventSO discardCardEvent;  // 回收卡牌事件
@@ -31,6 +35,11 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Init(cardData);
     }
 
+    /// <summary>
+    /// 初始化卡牌数据
+    /// </summary>
+    /// <param name="data">卡牌数据</param>
+    /// <exception cref="System.NotImplementedException"></exception>
     public void Init(CardDataSO data)
     {
         cardData = data;
@@ -100,7 +109,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <param name="target">目标</param>
     public void ExecuteCardEffects(CharacterBase from, CharacterBase target)
     {
-        // TODO 减少对应能量
+        costEvent.RaiseEvent(cardData.cost, this);  // 触发卡牌消耗事件
         discardCardEvent.RaiseEvent(this, this);    // 触发回收卡牌事件
 
         // 执行卡牌效果
@@ -108,5 +117,14 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             effect.Execute(from, target);
         }
+    }
+
+    /// <summary>
+    /// 更新卡牌状态
+    /// </summary>
+    public void UpdateStatus()
+    {
+        isAvailiable = cardData.cost <= player.CurrentMana;         // Mana 值足够
+        costText.color = isAvailiable ? Color.green : Color.red;    // 设置 cost 文本颜色
     }
 }

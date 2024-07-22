@@ -32,6 +32,13 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // 卡牌不可用
+        if (!currentCard.isAvailiable)
+        {
+            return;
+        }
+
+        // 卡牌类型
         switch (currentCard.cardData.cardType)
         {
             case CardType.Attack:
@@ -52,6 +59,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     /// <param name="eventData">事件数据</param>
     public void OnDrag(PointerEventData eventData)
     {
+        // 卡牌不可用
+        if (!currentCard.isAvailiable)
+        {
+            return;
+        }
+
         if (canMoved)
         {
             currentCard.isAnimatiing = true;
@@ -83,6 +96,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
+        // 卡牌不可用
+        if (!currentCard.isAvailiable)
+        {
+            return;
+        }
+
         if (currentArrow)
         {
             Destroy(currentArrow);

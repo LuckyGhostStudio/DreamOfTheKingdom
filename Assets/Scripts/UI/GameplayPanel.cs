@@ -3,14 +3,17 @@ using UnityEngine.UIElements;
 
 public class GameplayPanel : MonoBehaviour
 {
-    private VisualElement rootElement;      // ¸ù½ÚµãÔªËØ
+    [Header("ç©å®¶å›åˆç»“æŸäº‹ä»¶å¹¿æ’­")]
+    public ObjectEventSO playerTurnEndEvent;    // ç©å®¶å›åˆç»“æŸäº‹ä»¶
 
-    private Label energyAmountLabel;        // ÄÜÁ¿ Label
-    private Label drawDeckAmountLabel;      // ³éÅÆÊıÁ¿ Label
-    private Label DiscardDeckAmountLabel;   // ÆúÅÆÊıÁ¿ Label
-    private Label turnLabel;                // »ØºÏ Label
+    private VisualElement rootElement;      // æ ¹èŠ‚ç‚¹å…ƒç´ 
 
-    private Button endTurnButton;           // ½áÊø»ØºÏ Button
+    private Label energyAmountLabel;        // èƒ½é‡ Label
+    private Label drawDeckAmountLabel;      // æŠ½ç‰Œæ•°é‡ Label
+    private Label DiscardDeckAmountLabel;   // å¼ƒç‰Œæ•°é‡ Label
+    private Label turnLabel;                // å›åˆ Label
+
+    private Button endTurnButton;           // ç»“æŸå›åˆ Button
 
     private void OnEnable()
     {
@@ -20,27 +23,37 @@ public class GameplayPanel : MonoBehaviour
         drawDeckAmountLabel = rootElement.Q<Label>("DrawDeckAmount");
         DiscardDeckAmountLabel = rootElement.Q<Label>("DiscardAmount");
         turnLabel = rootElement.Q<Label>("TurnLabel");
+        
         endTurnButton = rootElement.Q<Button>("EndTurn");
+        endTurnButton.clicked += OnEndTurnButtonClick;
 
         energyAmountLabel.text = "0";
         drawDeckAmountLabel.text = "0";
         DiscardDeckAmountLabel.text = "0";
-        turnLabel.text = "ÓÎÏ·¿ªÊ¼";
+        turnLabel.text = "æ¸¸æˆå¼€å§‹";
     }
 
     /// <summary>
-    /// ¸üĞÂ³éÅÆ¶Ñ¿¨ÅÆÊıÁ¿
+    /// ç»“æŸæŒ‰é’®æŒ‰ä¸‹æ—¶è°ƒç”¨
     /// </summary>
-    /// <param name="amount">ÊıÁ¿</param>
+    private void OnEndTurnButtonClick()
+    {
+        playerTurnEndEvent.RaiseEvent(null, this);  // è§¦å‘ç©å®¶å›åˆç»“æŸäº‹ä»¶
+    }
+
+    /// <summary>
+    /// æ›´æ–°æŠ½ç‰Œå †å¡ç‰Œæ•°é‡
+    /// </summary>
+    /// <param name="amount">æ•°é‡</param>
     public void UpdateDrawDeckAmount(int amount)
     {
         drawDeckAmountLabel.text = amount.ToString();
     }
 
     /// <summary>
-    /// ¸üĞÂÆúÅÆ¶Ñ¿¨ÅÆÊıÁ¿
+    /// æ›´æ–°å¼ƒç‰Œå †å¡ç‰Œæ•°é‡
     /// </summary>
-    /// <param name="amount">ÊıÁ¿</param>
+    /// <param name="amount">æ•°é‡</param>
     public void UpdateDiscardDeckAmount(int amount)
     {
         DiscardDeckAmountLabel.text = amount.ToString();

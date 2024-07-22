@@ -689,6 +689,85 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1228767646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1228767647}
+  - component: {fileID: 1228767648}
+  - component: {fileID: 1228767649}
+  m_Layer: 0
+  m_Name: TurnBase Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1228767647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228767646}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1228767648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228767646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f8b39b09c2d8c478ec312f8a718882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleEnd: 1
+  playerWaitTime: 2.5
+  enemyTurnDuration: 1.5
+  playerTurnBeginEvent: {fileID: 11400000, guid: ed4ea88df53569b4bbcd2f5afb311651, type: 2}
+  enemyTurnBeginEvent: {fileID: 11400000, guid: 436c15af26d303548a93de12533c29c5, type: 2}
+  enemyTurnEndEvent: {fileID: 11400000, guid: 358fd5dcdceb74641ae974765c49c4c5, type: 2}
+--- !u!114 &1228767649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228767646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec2d7c2cedb5145499822791fc7036c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: 8a155706a2b5a9e4ba04e5c0e5b42617, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1228767648}
+        m_TargetAssemblyTypeName: TurnBaseManager, Assembly-CSharp
+        m_MethodName: EnemyTurnBegin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1330917155
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +830,7 @@ GameObject:
   - component: {fileID: 1356348228}
   - component: {fileID: 1356348230}
   - component: {fileID: 1356348231}
+  - component: {fileID: 1356348232}
   m_Layer: 0
   m_Name: Card Deck
   m_TagString: Untagged
@@ -797,7 +877,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356348227}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec2d7c2cedb5145499822791fc7036c2, type: 3}
   m_Name: 
@@ -838,6 +918,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CardDeck, Assembly-CSharp
         m_MethodName: DiscardCard
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1356348232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356348227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec2d7c2cedb5145499822791fc7036c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSO: {fileID: 11400000, guid: ed4ea88df53569b4bbcd2f5afb311651, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1356348228}
+        m_TargetAssemblyTypeName: CardDeck, Assembly-CSharp
+        m_MethodName: NewTurnDrawCards
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -943,6 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7a24adc03dda94ab04abe500776486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTurnEndEvent: {fileID: 11400000, guid: 8a155706a2b5a9e4ba04e5c0e5b42617, type: 2}
 --- !u!114 &1801607327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1265,6 +1374,7 @@ SceneRoots:
   - {fileID: 318971631}
   - {fileID: 805921885}
   - {fileID: 1330917157}
+  - {fileID: 1228767647}
   - {fileID: 1373883961}
   - {fileID: 326015876}
   - {fileID: 1356348229}

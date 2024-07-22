@@ -27,7 +27,6 @@ public class CardDeck : MonoBehaviour
     private void Start()
     {
         InitalizeDeck();
-        DrawCard(3);
     }
 
     /// <summary>
@@ -52,6 +51,14 @@ public class CardDeck : MonoBehaviour
     public void DrawCardTest()
     {
         DrawCard(1);
+    }
+
+    /// <summary>
+    /// 新回合抽卡
+    /// </summary>
+    public void NewTurnDrawCards()
+    {
+        DrawCard(4);
     }
 
     /// <summary>
@@ -146,9 +153,23 @@ public class CardDeck : MonoBehaviour
         discardDeck.Add(card.cardData);     // 添加到弃牌堆
         handCardObjectList.Remove(card);    // 从手牌中移除
 
-        cardManager.DiscardCardObject(card.gameObject);     // 将卡牌释放回对象池
+        cardManager.DiscardCardObject(card.gameObject);                     // 将卡牌释放回对象池
         discardDeckAmountChangedEvent.RaiseEvent(discardDeck.Count, this);  // 触发弃牌堆数量改变事件
 
         SetCardLayout();    // 重新设置手牌布局
+    }
+
+    /// <summary>
+    /// 弃掉所有手牌
+    /// </summary>
+    public void DisacardHandCards()
+    {
+        foreach (Card card in handCardObjectList)
+        {
+            discardDeck.Add(card.cardData);                     // 添加到弃牌堆
+            cardManager.DiscardCardObject(card.gameObject);     // 将卡牌释放回对象池
+        }
+        handCardObjectList.Clear();                                         // 清空手牌
+        discardDeckAmountChangedEvent.RaiseEvent(discardDeck.Count, this);  // 触发弃牌堆数量改变事件
     }
 }

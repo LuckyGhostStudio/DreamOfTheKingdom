@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -20,10 +21,15 @@ public class HealthBarController : MonoBehaviour
     [Header("Buff 和 Debuff 图片")]
     public Sprite buffSprite;
     public Sprite debuffSprite;
+    // TODO 移动到子类
+    private Enemy enemy;
+    private VisualElement intentElement;    // 敌人意图 UI
+    private Label intentAmountLabel;        // 敌人意图 Label
 
     private void Awake()
     {
         currentCharacter = GetComponent<CharacterBase>();
+        enemy = GetComponent<Enemy>();
         rootElement = GetComponent<UIDocument>().rootVisualElement;
 
         InitHealthBar(); // 初始化 血条
@@ -57,6 +63,10 @@ public class HealthBarController : MonoBehaviour
         buffElement = rootElement.Q<VisualElement>("Buff");     // 查找 buff 图标
         buffRoundLabel = buffElement.Q<Label>("BuffRound");     // 查找 buff round 值 Label
         buffElement.style.display = DisplayStyle.None;          // 不显示 buff 图标
+        // TODO：移动到子类
+        intentElement = rootElement.Q<VisualElement>("Intent");     // 查找敌人意图图标
+        intentAmountLabel = intentElement.Q<Label>("IntentAmount"); // 查找敌人意图 Label
+        intentElement.style.display = DisplayStyle.None;            // 不显示敌人意图图标
     }
 
     private void Update()
@@ -126,5 +136,31 @@ public class HealthBarController : MonoBehaviour
         buffElement.style.backgroundImage = currentCharacter.baseStrength > 1.0f ? new StyleBackground(buffSprite) : new StyleBackground(debuffSprite);
         // 设置 buff round 值
         buffRoundLabel.text = currentCharacter.strengthRound.currentValue.ToString();
+    }
+
+    /// <summary>
+    /// 设置意图图标
+    /// </summary>
+    public void SetIntentElement()
+    {
+        intentElement.style.display = DisplayStyle.Flex;
+        intentElement.style.backgroundImage = new StyleBackground(enemy.currentAction.intentSprite);    // 设置意图图标
+
+        int currentValue = enemy.currentAction.effect.value;   // 当前效果的值
+        // 攻击效果
+        if (enemy.currentAction.effect.GetType() == typeof(DamageEffect))
+        {
+            currentValue = (int)math.round(currentValue * enemy.baseStrength);  // 当前伤害值叠加力量值
+            // TODO 更新效果值
+        }
+        intentAmountLabel.text = currentValue.ToString();       // 设置意图效果的值
+    }
+
+    /// <summary>
+    /// 隐藏意图图标
+    /// </summary>
+    public void HideIntentElement()
+    {
+        intentElement.style.display = DisplayStyle.None;
     }
 }

@@ -7,5 +7,8 @@
         <engine:VisualElement name="Buff" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/Intents/buff_attack_up.png?fileID=2800000&amp;guid=810448b82870c45058f8b2de5423274a&amp;type=3#buff_attack_up&quot;); -unity-background-scale-mode: scale-to-fit; height: 45px; width: 45px; top: -10px; left: 300px; justify-content: center; align-self: center;">
             <engine:Label text="6" name="BuffRound" style="font-size: 26px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: middle-center; position: absolute; top: 10px; left: 45px;" />
         </engine:VisualElement>
+        <engine:VisualElement name="Intent" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/Intents/buff_defense.png?fileID=2800000&amp;guid=e60462361db3140c59c13b7122a2106c&amp;type=3#buff_defense&quot;); -unity-background-scale-mode: scale-to-fit; height: 45px; width: 45px; top: -49px; left: 115px; justify-content: center; align-self: center;">
+            <engine:Label text="10" name="IntentAmount" style="font-size: 26px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: middle-center; position: absolute; top: 7px; left: 48px;" />
+        </engine:VisualElement>
     </engine:ProgressBar>
 </engine:UXML>

@@ -20,7 +20,7 @@ public class CardDeck : MonoBehaviour
     [Header("抽牌堆卡牌数量改变事件广播")]
     public IntEventSO drawDeckAmountChangedEvent;
 
-    [Header("抽牌堆卡牌数量改变事件广播")]
+    [Header("弃牌堆卡牌数量改变事件广播")]
     public IntEventSO discardDeckAmountChangedEvent;
 
     // TODO 测试

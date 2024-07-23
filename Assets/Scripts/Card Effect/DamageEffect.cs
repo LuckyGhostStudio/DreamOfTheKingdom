@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Damage Effect", menuName = "Card Effect/Damage Effect")]
@@ -15,8 +16,9 @@ public class DamageEffect : Effect
         switch (targetType)
         {
             case EffectTargetType.Target:
-                target.TakeDamage(value);   // 计算伤害
-                Debug.Log("造成了 " + value + " 点伤害");
+                int damage = (int)math.round(value * from.baseStrength);    // 计算叠加力量值后的伤害
+                target.TakeDamage(damage);  // 计算伤害
+                Debug.Log("造成了 " + damage + " 点伤害");
                 break;
             case EffectTargetType.All:
                 // 找到所有敌人

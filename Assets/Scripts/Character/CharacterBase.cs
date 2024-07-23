@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterBase : MonoBehaviour
@@ -39,6 +40,11 @@ public class CharacterBase : MonoBehaviour
         ResetDefense();
     }
 
+    protected virtual void Update()
+    {
+        animator.SetBool("isDead", isDead);     // …Ë÷√À¿Õˆ∂Øª≠
+    }
+
     /// <summary>
     /// º∆À„…À∫¶
     /// </summary>
@@ -55,18 +61,19 @@ public class CharacterBase : MonoBehaviour
         {
             damage -= CurrentDefense;
             CurrentDefense = 0;
-        }
 
-        // º∆À„—™¡ø
-        if (CurrentHP > damage)
-        {
-            CurrentHP -= damage;
-            Debug.Log("Current HP " + CurrentHP);
-        }
-        else
-        {
-            CurrentHP = 0;  // À¿Õˆ
-            isDead = true;
+            // º∆À„—™¡ø
+            if (CurrentHP > damage)
+            {
+                CurrentHP -= damage;
+                animator.SetTrigger("hit");     // ≤•∑≈ ‹…À∂Øª≠
+                Debug.Log("Current HP " + CurrentHP);
+            }
+            else
+            {
+                CurrentHP = 0;  // À¿Õˆ
+                isDead = true;
+            }
         }
     }
 

@@ -27,6 +27,9 @@ public class CharacterBase : MonoBehaviour
     public float baseStrength = 1.0f;           // 基础力量值
     private float strengthEffectValue = 0.5f;   // 力量增效值
 
+    [Header("角色死亡事件广播")]
+    public ObjectEventSO characterDeadEvent;    // 角色死亡事件
+
     protected virtual void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -73,6 +76,7 @@ public class CharacterBase : MonoBehaviour
             {
                 CurrentHP = 0;  // 死亡
                 isDead = true;
+                characterDeadEvent.RaiseEvent(this, this);  // 触发角色死亡事件
             }
         }
     }

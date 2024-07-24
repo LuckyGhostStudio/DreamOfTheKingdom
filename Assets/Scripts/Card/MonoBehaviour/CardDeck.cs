@@ -168,10 +168,24 @@ public class CardDeck : MonoBehaviour
     {
         foreach (Card card in handCardObjectList)
         {
-            discardDeck.Add(card.cardData);                     // 添加到弃牌堆
-            cardManager.DiscardCardObject(card.gameObject);     // 将卡牌释放回对象池
+            discardDeck.Add(card.cardData);                                 // 添加到弃牌堆
+            cardManager.DiscardCardObject(card.gameObject);                 // 将卡牌释放回对象池
         }
         handCardObjectList.Clear();                                         // 清空手牌
         discardDeckAmountChangedEvent.RaiseEvent(discardDeck.Count, this);  // 触发弃牌堆数量改变事件
+    }
+
+    /// <summary>
+    /// 回收所有卡牌
+    /// </summary>
+    /// <param name="obj"></param>
+    public void ReleaseAllCards(object obj)
+    {
+        foreach (Card card in handCardObjectList)
+        {
+            cardManager.DiscardCardObject(card.gameObject); // 将卡牌释放回对象池
+        }
+        handCardObjectList.Clear();                         // 清空手牌
+        InitalizeDeck();                                    // 初始化牌堆
     }
 }

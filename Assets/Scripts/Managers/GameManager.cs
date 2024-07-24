@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,14 @@ public class GameManager : MonoBehaviour
 {
     [Header("地图布局")]
     public MapLayoutSO mapLayoutData;
+
+    public List<Enemy> aliveEnemyList;
+
+    [Header("游戏获胜事件广播")]
+    public ObjectEventSO gameWinEvent;
+
+    [Header("游戏失败事件广播")]
+    public ObjectEventSO gameOverEvent;
 
     private void Awake()
     {
@@ -43,5 +52,56 @@ public class GameManager : MonoBehaviour
             var nextRoom = mapLayoutData.mapRoomDataList.Find(r => r.column == next.x && r.line == next.y);
             nextRoom.roomState = RoomState.Attainable;
         }
+
+        aliveEnemyList.Clear(); // 清空敌人列表
+    }
+
+    /// <summary>
+    /// 房间加载完成事件
+    /// </summary>
+    /// <param name="obj"></param>
+    public void OnRoomLoadedEvent(object obj)
+    {
+        // 查找场景中所有敌人
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var enemy in enemies)
+        {
+            aliveEnemyList.Add(enemy);  // 添加到敌人列表
+        }
+    }
+
+    /// <summary>
+    /// 角色死亡时调用
+    /// </summary>
+    /// <param name="character">角色</param>
+    public void OnCharacterDeadEvent(object character)
+    {
+        if (character is Player)
+        {
+            StartCoroutine(GameFinishedEventDelayAction(gameOverEvent));    // 触发游戏失败事件
+        }
+
+        if (character is Enemy)
+        {
+            Enemy enemy = character as Enemy;
+
+            aliveEnemyList.Remove(enemy);   // 移除敌人
+            // 敌人全部死亡
+            if (aliveEnemyList.Count <= 0)
+            {
+                StartCoroutine(GameFinishedEventDelayAction(gameWinEvent)); // 触发游戏获胜事件
+            }
+        }
+    }
+
+    /// <summary>
+    /// 延迟触发游戏结束事件
+    /// </summary>
+    /// <param name="gameFinishedEvent">事件</param>
+    /// <returns></returns>
+    IEnumerator GameFinishedEventDelayAction(ObjectEventSO gameFinishedEvent)
+    {
+        yield return new WaitForSeconds(1.5f);
+        gameFinishedEvent.RaiseEvent(null, this);
     }
 }

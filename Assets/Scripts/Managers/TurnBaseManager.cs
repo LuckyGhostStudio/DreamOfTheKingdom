@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class TurnBaseManager : MonoBehaviour
 {
+    public GameObject player;
+
     private bool isPlayerTurn = false;  // 玩家回合
     private bool isEnemyTurn = false;   // 敌人回合
     public bool battleEnd = true;       // 战斗结束
@@ -97,5 +99,41 @@ public class TurnBaseManager : MonoBehaviour
     {
         isEnemyTurn = false;
         enemyTurnEndEvent.RaiseEvent(null, this);       // 触发敌人回合结束事件
+    }
+
+    /// <summary>
+    /// 房间加载完成时调用
+    /// </summary>
+    /// <param name="obj"></param>
+    public void OnRoomLoadedEvent(object obj)
+    {
+        Room room = obj as Room;
+        switch (room.roomData.roomType)
+        {
+            case RoomType.MinorEnemy:
+            case RoomType.EliteEnemy:
+            case RoomType.Boss:
+                player.SetActive(true);     // 启用 Player
+                GameStart();
+                break;
+            case RoomType.Treasure:
+            case RoomType.Shop:
+                player.SetActive(false);    // 关闭 Player
+                break;
+            case RoomType.Rest:
+                player.SetActive(true);     // 启用 Player
+                break;
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Map 加载时调用
+    /// </summary>
+    public void OnLoadMapEvent()
+    {
+        battleEnd = true;           // 对局结束
+        player.SetActive(false);    // 关闭 player
     }
 }

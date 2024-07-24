@@ -8,10 +8,18 @@ public class SceneLoadManager : MonoBehaviour
     private AssetReference currentScene;    // 当前要加载的场景
     public AssetReference mapScene;         // Map 场景
 
-    private Vector2Int currentRoomVector;    // 当前房间的坐标
+    private Vector2Int currentRoomVector;   // 当前房间的坐标
+    private Room currentRoom;
 
     [Header("房间加载完成事件广播")]
     public ObjectEventSO afterRoomLoadedEvent;  // 房间加载完成事件
+    [Header("更新房间状态事件广播")]
+    public ObjectEventSO updateRoomStateEvent;  // 更新房间状态事件
+
+    private void Start()
+    {
+        currentRoomVector = -Vector2Int.one;
+    }
 
     /// <summary>
     /// 加载房间场景：房间加载事件监听
@@ -21,7 +29,7 @@ public class SceneLoadManager : MonoBehaviour
     {
         if (data is Room)
         {
-            Room currentRoom = data as Room;
+            currentRoom = data as Room;
             RoomDataSO currentRoomData = currentRoom.roomData;
             currentRoomVector = new Vector2Int(currentRoom.column, currentRoom.line);
 
@@ -31,7 +39,7 @@ public class SceneLoadManager : MonoBehaviour
         await UnloadSceneTask();    // 卸载已激活的场景
         await LoadSceneTask();      // 加载场景
 
-        afterRoomLoadedEvent.RaiseEvent(currentRoomVector, this);   // 触发房间加载完成事件
+        afterRoomLoadedEvent.RaiseEvent(currentRoom, this);   // 触发房间加载完成事件
     }
 
     /// <summary>
@@ -65,6 +73,12 @@ public class SceneLoadManager : MonoBehaviour
     public async void LoadMap()
     {
         await UnloadSceneTask();    // 卸载已激活的场景
+
+        if (currentRoomVector != -Vector2Int.one)
+        {
+            updateRoomStateEvent.RaiseEvent(currentRoomVector, this);   // 触发更新房间状态事件
+        }
+
         currentScene = mapScene;
         await LoadSceneTask();      // 加载地图场景
     }

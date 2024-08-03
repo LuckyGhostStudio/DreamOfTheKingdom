@@ -11,8 +11,8 @@ public class Enemy : CharacterBase
     protected override void Awake()
     {
         base.Awake();
-        player = FindObjectsByType<Player>(FindObjectsInactive.Include, FindObjectsSortMode.None)[0];
-        // player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //player = FindObjectsByType<Player>(FindObjectsInactive.Include, FindObjectsSortMode.None)[0];
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     /// <summary>

@@ -3,9 +3,10 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [Header("UI 面板")]
-    public GameObject gameplayPanel;
-    public GameObject gameWinPanel;
-    public GameObject gameOverPanel;
+    public GameObject gameplayPanel;    // Gameplay UI 面板
+    public GameObject gameWinPanel;     // 游戏获胜 UI 面板
+    public GameObject gameOverPanel;    // 游戏结束 UI 面板
+    public GameObject pickCardPanel;    // 选择卡牌 UI 面板
 
     /// <summary>
     /// 房间加载时调用
@@ -46,12 +47,17 @@ public class UIManager : MonoBehaviour
     public void OnGameWinEvent()
     {
         gameplayPanel.SetActive(false);
-        gameWinPanel.SetActive(false);
+        gameWinPanel.SetActive(true);
     }
     
     public void OnGameOverEvent()
     {
         gameplayPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+    }
+
+    public void OnPickCardEvent()
+    {
+        pickCardPanel.SetActive(true);
     }
 }

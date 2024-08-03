@@ -82,7 +82,7 @@ public class CardDeck : MonoBehaviour
             CardDataSO currentCardData = drawDeck[0];   // 抽出第 0 张卡牌
             drawDeck.RemoveAt(0);                       // 移除该卡牌
 
-            drawDeckAmountChangedEvent.RaiseEvent(drawDeck.Count, this);        // 触发抽牌堆数量改变事件
+            drawDeckAmountChangedEvent.RaiseEvent(drawDeck.Count, this);    // 触发抽牌堆数量改变事件
 
             Card card = cardManager.GetCardObject().GetComponent<Card>();   // 从对象池获取一个 Card 对象
             card.Init(currentCardData);             // 使用抽出的卡牌数据初始化卡牌

@@ -17,7 +17,7 @@ public class SceneLoadManager : MonoBehaviour
     [Header("更新房间状态事件广播")]
     public ObjectEventSO updateRoomStateEvent;  // 更新房间状态事件
 
-    private void Start()
+    private void Awake()
     {
         currentRoomVector = -Vector2Int.one;
         LoadMenu();     // 加载主菜单场景

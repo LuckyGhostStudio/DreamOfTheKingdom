@@ -114,7 +114,7 @@ public class TurnBaseManager : MonoBehaviour
             case RoomType.EliteEnemy:
             case RoomType.Boss:
                 player.SetActive(true);     // 启用 Player
-                GameStart();
+                GameStart();                // 游戏开始 初始化回合
                 break;
             case RoomType.Treasure:
             case RoomType.Shop:
@@ -122,6 +122,7 @@ public class TurnBaseManager : MonoBehaviour
                 break;
             case RoomType.Rest:
                 player.SetActive(true);     // 启用 Player
+                player.GetComponent<PlayerAnimation>().SetSleepAnimation(); // 播放睡觉动画
                 break;
             default:
                 break;

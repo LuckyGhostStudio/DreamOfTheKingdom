@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd19165e66b80a14d8a2ffab22c0399e, type: 3}
-  m_Name: Player HP
+  m_Script: {fileID: 11500000, guid: 2ebe58b101eb44d4d9224eda28fd3a1f, type: 3}
+  m_Name: Rest Heal Effect
   m_EditorClassIdentifier: 
-  maxValue: 60
-  currentValue: 22
-  ValueChangedEvent: {fileID: 11400000, guid: bb2f645844c4c40478357c66eb8ab528, type: 2}
-  description: Player HP
+  value: 20
+  targetType: 0

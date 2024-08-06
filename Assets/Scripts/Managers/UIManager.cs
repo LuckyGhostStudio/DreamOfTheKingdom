@@ -44,12 +44,18 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(false);
     }
 
+    /// <summary>
+    /// 游戏获胜时调用
+    /// </summary>
     public void OnGameWinEvent()
     {
         gameplayPanel.SetActive(false);
         gameWinPanel.SetActive(true);
     }
     
+    /// <summary>
+    /// 游戏结束时调用
+    /// </summary>
     public void OnGameOverEvent()
     {
         gameplayPanel.SetActive(false);

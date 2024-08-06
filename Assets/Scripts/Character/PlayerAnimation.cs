@@ -63,4 +63,12 @@ public class PlayerAnimation : MonoBehaviour
                 break;
         }
     }
+
+    /// <summary>
+    /// 设置睡觉动画（休息房间）
+    /// </summary>
+    public void SetSleepAnimation()
+    {
+        animator.Play("death");
+    }
 }

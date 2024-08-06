@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -13,6 +12,8 @@ public class CardManager : MonoBehaviour
     [Header("卡牌库")]
     public CardLibrarySO newGameCardLibraryData;    // 新游戏初始卡牌库
     public CardLibrarySO currentCardLibraryData;    // 当前持有的卡牌库
+
+    int preCardIndex = 0;   // 上一张卡片序号（在抽卡面板中）
 
     private void Awake()
     {
@@ -75,5 +76,45 @@ public class CardManager : MonoBehaviour
     public void DiscardCardObject(GameObject card)
     {
         poolTool.ReleaseObjectToPool(card);
+    }
+
+    /// <summary>
+    /// 抽取一张卡牌
+    /// </summary>
+    /// <returns>卡牌数据</returns>
+    public CardDataSO GetNewCardData()
+    {
+        int randomIndex;
+        do
+        {
+            randomIndex = UnityEngine.Random.Range(0, cardDataList.Count);  // 随机抽取卡牌
+        } while (preCardIndex == randomIndex);  // 与前一张不同
+
+        preCardIndex = randomIndex;
+        return cardDataList[randomIndex];
+    }
+
+    /// <summary>
+    /// 解锁一张新卡牌 添加到当前卡牌库
+    /// </summary>
+    /// <param name="cardData">卡牌数据</param>
+    public void UnlockCard(CardDataSO cardData)
+    {
+        // 查找当前卡牌
+        CardLibraryEntry target = currentCardLibraryData.cardLibraryList.Find(t => cardData == t.cardData);
+        // 已存在
+        if (target != null)
+        {
+            // 数量 +1
+            target.amount++;
+        }
+        else
+        {
+            CardLibraryEntry newCardEntry = new CardLibraryEntry();     // 新卡牌数据项
+            newCardEntry.cardData = cardData;
+            newCardEntry.amount = 1;
+
+            currentCardLibraryData.cardLibraryList.Add(newCardEntry);   // 添加新卡牌项
+        }
     }
 }

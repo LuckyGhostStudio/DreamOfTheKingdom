@@ -56,8 +56,19 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(false);
     }
 
+    /// <summary>
+    /// 选择卡牌时调用
+    /// </summary>
     public void OnPickCardEvent()
     {
-        pickCardPanel.SetActive(true);
+        pickCardPanel.SetActive(true);  // 启用选择卡牌面板
+    }
+
+    /// <summary>
+    /// 结束选择卡牌页面时调用
+    /// </summary>
+    public void OnFinishPickCardEvent()
+    {
+        pickCardPanel.SetActive(false); // 结束选择卡牌面板
     }
 }

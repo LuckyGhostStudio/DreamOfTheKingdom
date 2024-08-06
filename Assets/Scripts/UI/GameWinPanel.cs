@@ -40,4 +40,12 @@ public class GameWinPanel : MonoBehaviour
     {
         loadMapEvent.RaiseEvent(null, this);    // 触发加载地图事件
     }
+
+    /// <summary>
+    /// 结束选择卡牌页面时调用
+    /// </summary>
+    public void OnFinishPickCardEvent()
+    {
+        pickCardButton.style.display = DisplayStyle.None;   // 隐藏选择卡牌按钮
+    }
 }

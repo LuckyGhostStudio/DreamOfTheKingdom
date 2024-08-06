@@ -7,6 +7,7 @@ public class SceneLoadManager : MonoBehaviour
 {
     private AssetReference currentScene;    // 当前要加载的场景
     public AssetReference mapScene;         // Map 场景
+    public AssetReference menuScecne;       // Menu 场景
 
     private Vector2Int currentRoomVector;   // 当前房间的坐标
     private Room currentRoom;
@@ -19,6 +20,7 @@ public class SceneLoadManager : MonoBehaviour
     private void Start()
     {
         currentRoomVector = -Vector2Int.one;
+        LoadMenu();     // 加载主菜单场景
     }
 
     /// <summary>
@@ -81,5 +83,18 @@ public class SceneLoadManager : MonoBehaviour
 
         currentScene = mapScene;
         await LoadSceneTask();      // 加载地图场景
+    }
+
+    /// <summary>
+    /// 加载 Menu 场景
+    /// </summary>
+    public async void LoadMenu()
+    {
+        if (currentScene != null)
+        {
+            await UnloadSceneTask();    // 卸载已激活的场景
+        }
+        currentScene = menuScecne;
+        await LoadSceneTask();          // 加载 Menu 场景
     }
 }

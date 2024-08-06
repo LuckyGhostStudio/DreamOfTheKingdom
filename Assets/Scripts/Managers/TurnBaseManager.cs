@@ -129,11 +129,16 @@ public class TurnBaseManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Map 加载时调用
+    /// 停止回合系统
     /// </summary>
-    public void OnLoadMapEvent()
+    public void StopTurnBaseSystem(object obj)
     {
         battleEnd = true;           // 对局结束
         player.SetActive(false);    // 关闭 player
+    }
+
+    public void NewGame()
+    {
+        player.GetComponent<Player>().Init();   // 初始化 Player
     }
 }

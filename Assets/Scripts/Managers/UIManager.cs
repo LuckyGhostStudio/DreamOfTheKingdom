@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
     public void OnGameOverEvent()
     {
         gameplayPanel.SetActive(false);
-        gameOverPanel.SetActive(false);
+        gameOverPanel.SetActive(true);
     }
 
     /// <summary>

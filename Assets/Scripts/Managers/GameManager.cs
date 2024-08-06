@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     {
         Vector2Int roomVector = (Vector2Int)data;
 
+        if (mapLayoutData.mapRoomDataList.Count <= 0)
+        {
+            return;
+        }
         // 查找与 roomVector 匹配的房间
         MapRoomData currentRoom = mapLayoutData.mapRoomDataList.Find(r => r.column == roomVector.x && r.line == roomVector.y);
         // 已访问
@@ -78,11 +82,13 @@ public class GameManager : MonoBehaviour
     {
         if (character is Player)
         {
+            Debug.Log("Player Dead.");
             StartCoroutine(GameFinishedEventDelayAction(gameOverEvent));    // 触发游戏失败事件
         }
 
         if (character is Enemy)
         {
+            Debug.Log("Enemy Dead.");
             Enemy enemy = character as Enemy;
 
             aliveEnemyList.Remove(enemy);   // 移除敌人
@@ -103,5 +109,14 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         gameFinishedEvent.RaiseEvent(null, this);
+    }
+
+    /// <summary>
+    /// 新游戏开始时调用
+    /// </summary>
+    public void OnNewGameEvent()
+    {
+        mapLayoutData.mapRoomDataList.Clear();  // 清空地图房间数据
+        mapLayoutData.linePositionList.Clear(); // 清空连线数据
     }
 }

@@ -26,7 +26,7 @@ public class HealthBarController : MonoBehaviour
     private VisualElement intentElement;    // 敌人意图 UI
     private Label intentAmountLabel;        // 敌人意图 Label
 
-    private void Awake()
+    private void OnEnable()
     {
         currentCharacter = GetComponent<CharacterBase>();
         enemy = GetComponent<Enemy>();

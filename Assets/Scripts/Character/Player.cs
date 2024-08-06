@@ -34,4 +34,15 @@ public class Player : CharacterBase
             CurrentMana = 0;
         }
     }
+
+    /// <summary>
+    /// 初始化数据
+    /// </summary>
+    public void Init()
+    {
+        CurrentHP = MaxHP;
+        isDead = false;
+        strengthRound.currentValue = strengthRound.maxValue;
+        NewTurn();
+    }    
 }

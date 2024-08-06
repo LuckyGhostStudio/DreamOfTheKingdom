@@ -12,7 +12,7 @@ public class Enemy : CharacterBase
     {
         base.Awake();
         //player = FindObjectsByType<Player>(FindObjectsInactive.Include, FindObjectsSortMode.None)[0];
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     /// <summary>
@@ -20,6 +20,7 @@ public class Enemy : CharacterBase
     /// </summary>
     public virtual void OnPlayerTurnBegin()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         currentAction = actionData.actions[Random.Range(0, actionData.actions.Count)];  // 随机获取行为
         Debug.Log("当前行为 " + currentAction.effect.GetType().ToString());
     }
@@ -29,6 +30,7 @@ public class Enemy : CharacterBase
     /// </summary>
     public virtual void OnEnemyTurnBegin()
     {
+        ResetDefense();
         // 根据效果类型 执行对应行为
         switch (currentAction.effect.targetType)
         {

@@ -14,7 +14,7 @@ public class GameWinPanel : MonoBehaviour
     [Header("选择卡牌事件广播")]
     public ObjectEventSO pickCardEvent;
 
-    private void Awake()
+    private void OnEnable()
     {
         rootElement = GetComponent<UIDocument>().rootVisualElement;
 

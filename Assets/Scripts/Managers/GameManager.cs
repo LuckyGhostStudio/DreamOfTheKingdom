@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         if (character is Player)
         {
             Debug.Log("Player Dead.");
-            StartCoroutine(GameFinishedEventDelayAction(gameOverEvent));    // 触发游戏失败事件
+            StartCoroutine(GameFinishedEventDelayAction(gameOverEvent));    // 触发游戏结束事件
         }
 
         if (character is Enemy)
@@ -97,6 +97,11 @@ public class GameManager : MonoBehaviour
             {
                 StartCoroutine(GameFinishedEventDelayAction(gameWinEvent)); // 触发游戏获胜事件
             }
+        }
+        else if (character is Boos)
+        {
+            Debug.Log("通关.");
+            StartCoroutine(GameFinishedEventDelayAction(gameOverEvent));    // 触发游戏结束事件
         }
     }
 

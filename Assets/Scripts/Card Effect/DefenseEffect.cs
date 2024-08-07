@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Defense Effect", menuName = "Card Effect/Defense Effect")]
-public class DefenseEffest : Effect
+public class DefenseEffect : Effect
 {
     /// <summary>
     /// Ö´ÐÐÐ§¹û

@@ -8,13 +8,6 @@ public class Enemy : CharacterBase
 
     protected Player player;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        //player = FindObjectsByType<Player>(FindObjectsInactive.Include, FindObjectsSortMode.None)[0];
-        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-    }
-
     /// <summary>
     /// 玩家回合开始时调用
     /// </summary>

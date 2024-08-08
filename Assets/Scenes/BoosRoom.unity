@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 19724768}
   - component: {fileID: 19724767}
-  - component: {fileID: 19724766}
+  - component: {fileID: 19724769}
   - component: {fileID: 19724765}
   - component: {fileID: 19724764}
   - component: {fileID: 19724763}
@@ -214,7 +214,7 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 19724766}
+      - m_Target: {fileID: 19724769}
         m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
         m_MethodName: OnPlayerTurnBegin
         m_Mode: 1
@@ -254,7 +254,7 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 19724766}
+      - m_Target: {fileID: 19724769}
         m_TargetAssemblyTypeName: CharacterBase, Assembly-CSharp
         m_MethodName: UpdateStrengthRound
         m_Mode: 1
@@ -266,7 +266,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 19724766}
+      - m_Target: {fileID: 19724769}
         m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
         m_MethodName: OnEnemyTurnBegin
         m_Mode: 1
@@ -313,30 +313,6 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
---- !u!114 &19724766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19724759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e894206713dc65d42ad6cae19250df3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vFXController: {fileID: 373226205}
-  maxHp: 100
-  hp: {fileID: 11400000, guid: 62440515a805ec94fab29963d5ab4972, type: 2}
-  isDead: 0
-  defense: {fileID: 11400000, guid: b30b7d6f627dc494b8936a69f016b1d9, type: 2}
-  strengthRound: {fileID: 11400000, guid: 9f1d0cb873cadb3488c24aa1851feb25, type: 2}
-  baseStrength: 1
-  characterDeadEvent: {fileID: 11400000, guid: 0169ca541bf17714696424c3cd2e6462, type: 2}
-  actionData: {fileID: 11400000, guid: d15c984b58a4a41489b0a109bf410618, type: 2}
-  currentAction:
-    intentSprite: {fileID: 0}
-    effect: {fileID: 0}
 --- !u!61 &19724767
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -371,7 +347,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.09283137, y: 1.4706419}
+  m_Offset: {x: 0.3391745, y: 3.159855}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -381,7 +357,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.6318746, y: 2.9054828}
+  m_Size: {x: 4.9545436, y: 6.283909}
   m_EdgeRadius: 0
 --- !u!4 &19724768
 Transform:
@@ -401,6 +377,30 @@ Transform:
   - {fileID: 373226206}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &19724769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19724759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888ad68f72be5fb4c9f33dc8691ccbee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vFXController: {fileID: 373226205}
+  maxHp: 100
+  hp: {fileID: 11400000, guid: 62440515a805ec94fab29963d5ab4972, type: 2}
+  isDead: 0
+  defense: {fileID: 11400000, guid: b30b7d6f627dc494b8936a69f016b1d9, type: 2}
+  strengthRound: {fileID: 11400000, guid: 9f1d0cb873cadb3488c24aa1851feb25, type: 2}
+  baseStrength: 1
+  characterDeadEvent: {fileID: 11400000, guid: 0169ca541bf17714696424c3cd2e6462, type: 2}
+  actionData: {fileID: 11400000, guid: 6f68747ad157e3245b27257fe523d736, type: 2}
+  currentAction:
+    intentSprite: {fileID: 0}
+    effect: {fileID: 0}
 --- !u!1 &19729011
 GameObject:
   m_ObjectHideFlags: 0

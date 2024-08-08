@@ -86,7 +86,13 @@ public class GameManager : MonoBehaviour
             StartCoroutine(GameFinishedEventDelayAction(gameOverEvent));    // 触发游戏结束事件
         }
 
-        if (character is Enemy)
+
+        if (character is Boos)
+        {
+            Debug.Log("通关.");
+            StartCoroutine(GameFinishedEventDelayAction(gameOverEvent));    // 触发游戏结束事件
+        }
+        else if (character is Enemy)
         {
             Debug.Log("Enemy Dead.");
             Enemy enemy = character as Enemy;
@@ -97,11 +103,6 @@ public class GameManager : MonoBehaviour
             {
                 StartCoroutine(GameFinishedEventDelayAction(gameWinEvent)); // 触发游戏获胜事件
             }
-        }
-        else if (character is Boos)
-        {
-            Debug.Log("通关.");
-            StartCoroutine(GameFinishedEventDelayAction(gameOverEvent));    // 触发游戏结束事件
         }
     }
 

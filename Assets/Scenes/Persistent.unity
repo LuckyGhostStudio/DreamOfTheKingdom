@@ -1066,6 +1066,70 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   m_MaxRayIntersections: 0
+--- !u!1 &541013604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 541013607}
+  - component: {fileID: 541013606}
+  - component: {fileID: 541013605}
+  m_Layer: 0
+  m_Name: Fade Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &541013605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541013604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444c65702fe15354bb61d6b76f07d479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &541013606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541013604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: c572ded166078b146a64eb17d8ee6cfd, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 55522e975c268b94991d912bfbd3dcb1, type: 3}
+  m_SortingOrder: 20
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &541013607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541013604}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &805921883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,7 +2552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2d7c2cedb5145499822791fc7036c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSO: {fileID: 11400000, guid: 31cd99ae32df0634aa9de0cfa22d010c, type: 2}
+  eventSO: {fileID: 11400000, guid: dc015cf0504764b4092112dd8b8c4174, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:
@@ -2667,14 +2731,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa52ce09bb95c54ca45a6b0053db570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadePanel: {fileID: 541013605}
   mapScene:
     m_AssetGUID: c3ce061dc39624b4881c01c4b46cb222
     m_SubObjectName: 
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  menuScecne:
+  menuScene:
     m_AssetGUID: 45f05a0d675c76a4f85f3f9a0f57aa1b
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  introScene:
+    m_AssetGUID: ceb5b4ecb753449bfa333c67d9183401
     m_SubObjectName: 
     m_SubObjectGUID: 
     m_SubObjectType: 
@@ -2815,3 +2886,4 @@ SceneRoots:
   - {fileID: 228680959}
   - {fileID: 1846717380}
   - {fileID: 452804299}
+  - {fileID: 541013607}

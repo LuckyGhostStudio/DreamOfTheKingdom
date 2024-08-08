@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enemy HP
   m_EditorClassIdentifier: 
   maxValue: 100
-  currentValue: 100
+  currentValue: 0
   ValueChangedEvent: {fileID: 11400000, guid: 939a5f994c0e3514bb4f7aa2a051b258, type: 2}
   description: Enemy HP

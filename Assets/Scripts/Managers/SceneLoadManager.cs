@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : MonoBehaviour
 {
+    public FadePanel fadePanel;     // 渐入渐出面板
+
     private AssetReference currentScene;    // 当前要加载的场景
     public AssetReference mapScene;         // Map 场景
-    public AssetReference menuScecne;       // Menu 场景
+    public AssetReference menuScene;        // Menu 场景
+    public AssetReference introScene;       // 开始过场动画场景
 
     private Vector2Int currentRoomVector;   // 当前房间的坐标
     private Room currentRoom;
@@ -20,7 +23,8 @@ public class SceneLoadManager : MonoBehaviour
     private void Awake()
     {
         currentRoomVector = -Vector2Int.one;
-        LoadMenu();     // 加载主菜单场景
+        LoadIntro();    // 加载 开始场景
+        // LoadMenu();     // 加载主菜单场景
     }
 
     /// <summary>
@@ -56,6 +60,7 @@ public class SceneLoadManager : MonoBehaviour
         // 场景加载成功
         if (s.Status == AsyncOperationStatus.Succeeded)
         {
+            fadePanel.FadeOut(0.2f);
             SceneManager.SetActiveScene(s.Result.Scene);    // 激活场景
         }
     }
@@ -66,7 +71,9 @@ public class SceneLoadManager : MonoBehaviour
     /// <returns></returns>
     private async Awaitable UnloadSceneTask()
     {
-        await SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());     // 异步卸载已激活的场景
+        fadePanel.FadeIn(0.4f);
+        await Awaitable.WaitForSecondsAsync(0.45f); // 等待
+        await Awaitable.FromAsyncOperation(SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene()));   // 异步卸载已激活的场景
     }
 
     /// <summary>
@@ -94,7 +101,20 @@ public class SceneLoadManager : MonoBehaviour
         {
             await UnloadSceneTask();    // 卸载已激活的场景
         }
-        currentScene = menuScecne;
+        currentScene = menuScene;
         await LoadSceneTask();          // 加载 Menu 场景
+    }
+
+    /// <summary>
+    /// 加载 Intro 场景
+    /// </summary>
+    public async void LoadIntro()
+    {
+        if (currentScene != null)
+        {
+            await UnloadSceneTask();    // 卸载已激活的场景
+        }
+        currentScene = introScene;
+        await LoadSceneTask();          // 加载 Intro 场景
     }
 }

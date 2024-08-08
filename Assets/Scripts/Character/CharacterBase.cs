@@ -137,6 +137,7 @@ public class CharacterBase : MonoBehaviour
         }
         else
         {
+            // TODO: 判断目标是否有buff，如果有，且自己给对方添加debuff，则需先清空回合数。
             strengthRound.SetValue(strengthRound.currentValue + round);     // 增加持续回合个数
         }
     }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcbe6d7cf9e40234faf62c88fc813937, type: 3}
   m_Name: Enemy NormalDefense Effect
   m_EditorClassIdentifier: 
-  value: 10
+  value: 8
   targetType: 0

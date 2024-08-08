@@ -511,7 +511,7 @@ MonoBehaviour:
   strengthRound: {fileID: 11400000, guid: 9f1d0cb873cadb3488c24aa1851feb25, type: 2}
   baseStrength: 1
   characterDeadEvent: {fileID: 11400000, guid: 0169ca541bf17714696424c3cd2e6462, type: 2}
-  actionData: {fileID: 11400000, guid: d15c984b58a4a41489b0a109bf410618, type: 2}
+  actionData: {fileID: 11400000, guid: 782b72924f0da3342a8d58fafe1d382c, type: 2}
   currentAction:
     intentSprite: {fileID: 0}
     effect: {fileID: 0}
